@@ -1,4 +1,9 @@
 <?php session_start(); ?>
+<?php
+  if($_SESSION['email']==null){
+    header('Location: login.php');
+  }
+?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -7,14 +12,18 @@
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <!-- Bootstrap 3.3.2 -->
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="plugins/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css">
     <!-- FontAwesome 4.3.0 -->
     <!-- Ionicons 2.0.0 -->
     <!-- Theme style -->
     <link href="dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+
     <link href="dist/css/fa/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link href="dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" href="plugins/select2/dist/css/select2.min.css">
     <!-- iCheck -->
     <!-- <link href="plugins/iCheck/flat/blue.css" rel="stylesheet" type="text/css" /> -->
     <link href="plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
@@ -34,6 +43,9 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
+    <style>
+    .fc-time{ display: none; }
+    </style>
   </head>
   <body class="skin-blue">
     <div class="wrapper">
@@ -73,14 +85,9 @@
                 <i class="fa fa-dashboard"></i> <span>Dashboard</span>
               </a>
             </li>
-            <li class="treeview <?php if(isset($_GET['page']) && $_GET['page']=="data_admin") { echo "active"; } ?>">
-              <a href="./?page=data_admin">
-                <i class="fa fa-user-md"></i> <span>Data Admin</span>
-              </a>
-            </li>
-            <li class="treeview <?php if(isset($_GET['page']) && $_GET['page']=="data_teknisi") { echo "active"; } ?>">
-              <a href="./?page=data_teknisi">
-                <i class="fa fa-user"></i> <span>Data Teknisi</span>
+            <li class="treeview <?php if(isset($_GET['page']) && $_GET['page']=="data_user") { echo "active"; } ?>">
+              <a href="./?page=data_user">
+                <i class="fa fa-user-md"></i> <span>Data Pengguna</span>
               </a>
             </li>
             <li class="treeview <?php if(isset($_GET['page']) && $_GET['page']=="data_pelanggan") { echo "active"; } ?>">
@@ -93,27 +100,22 @@
                 <i class="fa fa-phone-square "></i> <span>Data PIC</span>
               </a>
             </li>
+            <li class="treeview <?php if(isset($_GET['page']) && $_GET['page']=="data_tipe_agenda") { echo "active"; } ?>">
+              <a href="./?page=data_tipe_agenda">
+                <i class="fa fa-file"></i> <span>Tipe Agenda</span>
+              </a>
+            </li>
             <li class="treeview <?php if(isset($_GET['page']) && $_GET['page']=="agenda") { echo "active"; } ?>">
               <a href="./?page=agenda">
                 <i class="fa fa-file"></i> <span>Agenda</span>
               </a>
             </li>
-            <?php if(!isset($_SESSION['username'])): ?>
-             <li class="treeview">
-              <a href="login.php">
-                <i class="fa fa-lock"></i> <span>Login</span>
-              </a>
-            </li>
-          <?php else: ?>
-            <li class="header">MENU ADMIN</li>
-            <li class="<?php if(isset($_GET['page']) && $_GET['page']=="admin") { echo "active"; } ?>">
-            <a href="./?page=admin"><i class="fa fa-user text-warning"></i> Manajemen User</a></li>
+            <li class="header">MENU USER</li>
             <li class="treeview">
               <a href="logout.php">
                 <i class="fa fa-backward text-danger"></i> <span>Log Out</span>
               </a>
             </li>
-          <?php endif; ?>
           </ul>
         </section>
         <!-- /.sidebar -->
@@ -168,6 +170,7 @@
     </script>
     <!-- Bootstrap 3.3.2 JS -->
     <script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="plugins/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
     <!-- Morris.js charts -->
     <!-- Sparkline -->
     <!-- jvectormap -->
@@ -185,7 +188,9 @@
     <!-- AdminLTE App -->
     <script src="dist/js/app.min.js" type="text/javascript"></script>
 
-
+    <script>
+      $('.my-colorpicker2').colorpicker()
+    </script>
 
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <!-- <script src="dist/js/pages/dashboard.js" type="text/javascript"></script> -->

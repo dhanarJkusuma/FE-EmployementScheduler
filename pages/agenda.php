@@ -1,7 +1,12 @@
 <?php 
 	require 'config/main.php';
 	$query=mysqli_query($conn, "SELECT * FROM pengguna WHERE status='admin'");
+  $queryTipe=mysqli_query($conn, "SELECT * FROM agenda_tipe");
+  $queryPIC = mysqli_query($conn, "SELECT * FROM pengguna WHERE status='se'");
 ?>
+
+
+
 
 <div class="col-md-12">
   <div class="box box-primary">
@@ -14,169 +19,267 @@
   <!-- /. box -->
 </div>
 
+<div class="modal fade" tabindex="-1" role="dialog" id="add-agenda">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form method="POST" id="form-submit" action="#">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Manajemen Agenda</h4>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+              <input type="hidden" id="agenda_id" value="-1" />
+              <input type="hidden" id="startDate"  />
+              <input type="hidden" id="endDate"  />
+              <label>PIC</label>
+              <select class="form-control select2" multiple="multiple" data-placeholder="Pilih PIC" id="pic" 
+                      style="width: 100%;" name="pic">
+                <?php while($row = mysqli_fetch_object($queryPIC)){ ?>
+                    <option value="<?= $row->id ?>"><?= $row->nama ?></option>
+                <?php } ?>
+              </select>
+            </div>
+
+           <div class="form-group">
+              <label>Tipe Agenda</label>
+              <select class="form-control" name="tipe" id="tipe">
+                <?php while($row = mysqli_fetch_object($queryTipe)){ ?>
+                    <option value="<?= $row->id ?>"><?= $row->nama ?></option>
+                <?php } ?>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Deskripsi</label>
+              <textarea rows="2" class="form-control" name="deskripsi" id="deskripsi"></textarea>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" id="delete-btn">Hapus</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+      </form>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="hapus-dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form method="POST" id="form-delete" action="#">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Peringatan</h4>
+        </div>
+        <div class="modal-body">
+          Apakah anda yakin menghapus event ini?
+          <input type="hidden" id="agenda_id_delete"/>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+      </form>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 <script src="plugins/jQuery/jQuery-2.1.3.min.js"></script>
 <script src="plugins/datatables/jquery.dataTables.js" type="text/javascript"></script>
+<!-- Select2 -->
+<script src="plugins/select2/dist/js/select2.full.min.js"></script>
 <script src="plugins/datatables/dataTables.bootstrap.js" type="text/javascript"></script>
 <script src="plugins/moment/moment.js"></script>
 <script src="plugins/fullcalendar/fullcalendar.min.js"></script>
 <script>
-  $(function () {
+  $("#delete-btn").hide();
+var date = new Date(),
+    d = date.getDate(),
+    m = date.getMonth(),
+    y = date.getFullYear(),
+    started,
+    categoryClass;
 
-    /* initialize the external events
-     -----------------------------------------------------------------*/
-    function init_events(ele) {
-      ele.each(function () {
-
-        // create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
-        // it doesn't need to have a start or end
-        var eventObject = {
-          title: $.trim($(this).text()) // use the element's text as the event title
-        }
-
-        // store the Event Object in the DOM element so we can get to it later
-        $(this).data('eventObject', eventObject)
-
-        // make the event draggable using jQuery UI
-        $(this).draggable({
-          zIndex        : 1070,
-          revert        : true, // will cause the event to go back to its
-          revertDuration: 0  //  original position after the drag
-        })
-
-      })
-    }
-
-    init_events($('#external-events div.external-event'))
-
-    /* initialize the calendar
-     -----------------------------------------------------------------*/
-    //Date for the calendar events (dummy data)
-    var date = new Date()
-    var d    = date.getDate(),
-        m    = date.getMonth(),
-        y    = date.getFullYear()
-    $('#calendar').fullCalendar({
-      header    : {
-        left  : 'prev,next today',
+    window.calendar = $('#calendar').fullCalendar({
+    header: {
+        left: 'prev,next today',
         center: 'title',
-        right : 'month'
-      },
-      buttonText: {
-        today: 'today',
-        month: 'month',
-        week : 'week',
-        day  : 'day'
-      },
-      //Random default events
-      events    : [
-        {
-          title          : 'All Day Event',
-          start          : new Date(y, m, 1),
-          backgroundColor: '#f56954', //red
-          borderColor    : '#f56954' //red
+        right: 'month',
+    },
+    displayEventTime : false,
+    selectable: true,
+    selectHelper: true,
+    // create
+    select: function(start, end, allDay) {
+
+        // cleanup form
+        
+        window.ev_id = null;
+
+        window.started = start.format("YYYY-MM-DD");
+        window.ended = end.format("YYYY-MM-DD");
+
+        $('#startDate').val(start.format());
+        $('#endDate').val(end.format());
+
+        $('#add-agenda').modal('show');
+        
+        calendar.fullCalendar('unselect');
+    },
+    // edit
+    eventClick: function(calEvent, jsEvent, view) {
+
+        // TODO: Mengirimkan parameter id event agar ke load data
+        var ev_id = calEvent.calendar_id;
+        window.ev_id = ev_id;
+        
+        console.log(calEvent);
+
+        window.started = calEvent.start.format("YYYY-MM-DD");
+        window.ended = calEvent.end.format("YYYY-MM-DD");
+
+        $('#agenda_id').val(calEvent.calendar_id);
+
+        var pics = [];
+        calEvent.pic.forEach(function(pic){
+          pics.push(pic.teknisi_id);
+        });
+
+        $('.select2').select2().val(pics).trigger("change");
+
+        $('#tipe').val(calEvent.tipe);
+        $('#deskripsi').text(calEvent.deskripsi);
+        $('#startDate').val(calEvent.startDate);
+        $('#endDate').val(calEvent.endDate);
+        $("#delete-btn").show();
+        $('#add-agenda').modal('show');
+
+
+        calendar.fullCalendar('unselect');
+
+    },
+    editable: true,
+    events: function(start, end, timezone, callback) {
+      var url = "pages/list_data_agenda.php?start_date=" + start.format() + "&end_date=" + end.format();
+      $.get(url,function(data){
+            console.log(data.events);
+            if (data.events == undefined){
+                alert("Error in fetching calendar feed, reason: "+data.err)
+            } else {
+               callback(data.events);
+            }
+        },"json");
+        
+    },
+    eventDrop: function(event, delta, revertFunc) {
+      
+      var id = event.calendar_id;
+      var startDate = event.startDate;
+      var endDate = event.endDate;
+      var days = delta._days;
+      
+      var url = "pages/ajax_edit_date_agenda.php";
+      $.ajax({
+        type: "POST",
+        url: url,
+        data: { id:id, startDate:startDate, endDate: endDate, days:days},
+        success: function(data){
+          if(data.status){
+            $('#calendar').fullCalendar( 'refetchEvents' );
+          }
         },
-        {
-          title          : 'Long Event',
-          start          : new Date(y, m, d - 5),
-          end            : new Date(y, m, d - 2),
-          backgroundColor: '#f39c12', //yellow
-          borderColor    : '#f39c12' //yellow
+        dataType: "json"
+      }); 
+    }
+});
+
+$('.select2').select2();
+
+$('#form-submit').on('submit', function(e){
+    e.preventDefault(); 
+    var pic = JSON.stringify($('#pic').select2("data"));
+    var tipe = $('#tipe').val();
+    var deskripsi = $('#deskripsi').val();
+    var startDate = $('#startDate').val();
+    var endDate = $('#endDate').val();
+
+
+
+    var id = $('#agenda_id').val();
+
+
+    if(id!=-1){
+      var url = "pages/ajax_edit_agenda.php";
+      $.ajax({
+        type: "POST",
+        url: url,
+        data: { id:id, pic:pic, tipe:tipe, deskripsi: deskripsi, startDate: startDate, endDate: endDate},
+        success: function(data){
+          if(data.status){
+            $('#add-agenda').modal('hide');
+            $('#calendar').fullCalendar( 'refetchEvents' );
+            resetField();
+          }
         },
-        {
-          title          : 'Meeting',
-          start          : new Date(y, m, d, 10, 30),
-          allDay         : false,
-          backgroundColor: '#0073b7', //Blue
-          borderColor    : '#0073b7' //Blue
+        dataType: "json"
+      }); 
+    }else{
+      var url = "pages/ajax_tambah_agenda.php";
+      $.ajax({
+        type: "POST",
+        url: url,
+        data: { pic:pic, tipe:tipe, deskripsi: deskripsi, startDate: startDate, endDate: endDate},
+        success: function(data){
+          if(data.status){
+            $('#add-agenda').modal('hide');
+            $('#calendar').fullCalendar( 'refetchEvents' );
+            resetField();
+          }
         },
-        {
-          title          : 'Lunch',
-          start          : new Date(y, m, d, 12, 0),
-          end            : new Date(y, m, d, 14, 0),
-          allDay         : false,
-          backgroundColor: '#00c0ef', //Info (aqua)
-          borderColor    : '#00c0ef' //Info (aqua)
-        },
-        {
-          title          : 'Birthday Party',
-          start          : new Date(y, m, d + 1, 19, 0),
-          end            : new Date(y, m, d + 1, 22, 30),
-          allDay         : false,
-          backgroundColor: '#00a65a', //Success (green)
-          borderColor    : '#00a65a' //Success (green)
-        },
-        {
-          title          : 'Click for Google',
-          start          : new Date(y, m, 28),
-          end            : new Date(y, m, 29),
-          url            : 'http://google.com/',
-          backgroundColor: '#3c8dbc', //Primary (light-blue)
-          borderColor    : '#3c8dbc' //Primary (light-blue)
-        }
-      ],
-      editable  : true,
-      droppable : true, // this allows things to be dropped onto the calendar !!!
-      drop      : function (date, allDay) { // this function is called when something is dropped
+        dataType: "json"
+      }); 
+    }    
+  });
 
-        // retrieve the dropped element's stored Event Object
-        var originalEventObject = $(this).data('eventObject')
+$('#delete-btn').on('click', function(){
+  $('#agenda_id_delete').val($('#agenda_id').val());
+  $("#hapus-dialog").modal('show');
+});
 
-        // we need to copy it, so that multiple events don't have a reference to the same object
-        var copiedEventObject = $.extend({}, originalEventObject)
-
-        // assign it the date that was reported
-        copiedEventObject.start           = date
-        copiedEventObject.allDay          = allDay
-        copiedEventObject.backgroundColor = $(this).css('background-color')
-        copiedEventObject.borderColor     = $(this).css('border-color')
-
-        // render the event on the calendar
-        // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
-        $('#calendar').fullCalendar('renderEvent', copiedEventObject, true)
-
-        // is the "remove after drop" checkbox checked?
-        if ($('#drop-remove').is(':checked')) {
-          // if so, remove the element from the "Draggable Events" list
-          $(this).remove()
-        }
-
-      }
-    })
-
-    /* ADDING EVENTS */
-    var currColor = '#3c8dbc' //Red by default
-    //Color chooser button
-    var colorChooser = $('#color-chooser-btn')
-    $('#color-chooser > li > a').click(function (e) {
-      e.preventDefault()
-      //Save color
-      currColor = $(this).css('color')
-      //Add color effect to button
-      $('#add-new-event').css({ 'background-color': currColor, 'border-color': currColor })
-    })
-    $('#add-new-event').click(function (e) {
-      e.preventDefault()
-      //Get value and make sure it is not null
-      var val = $('#new-event').val()
-      if (val.length == 0) {
-        return
-      }
-
-      //Create events
-      var event = $('<div />')
-      event.css({
-        'background-color': currColor,
-        'border-color'    : currColor,
-        'color'           : '#fff'
-      }).addClass('external-event')
-      event.html(val)
-      $('#external-events').prepend(event)
-
-      //Add draggable funtionality
-      init_events(event)
-
-      //Remove event from text input
-      $('#new-event').val('')
-    })
+  $('#add-agenda').on('hidden.bs.modal', function (e) {
+    $('#agenda_id').val(-1);
+    $('#delete-btn').hide();
   })
+
+  $('#hapus-dialog').on('hidden.bs.modal', function(e){
+    $('#agenda_id_delete').val(-1);
+  });
+
+  $('#form-delete').on('submit', function(e){
+    var id = $('#agenda_id_delete').val();
+    var url = "pages/ajax_hapus_agenda.php";
+      $.ajax({
+        type: "POST",
+        url: url,
+        data: { id:id },
+        success: function(data){
+          if(data.status){
+            $('#hapus-dialog').modal('hide');
+            $('#add-agenda').modal('hide');
+            $('#calendar').fullCalendar( 'refetchEvents' );
+          }
+        },
+        dataType: "json"
+      }); 
+      e.preventDefault();
+  });
+
+  function resetField(){
+    $('.select2').select2().val("").trigger("change");
+    $('#deskripsi').val("");
+
+  }
 </script>

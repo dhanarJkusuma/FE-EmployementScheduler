@@ -5,8 +5,8 @@ $type = trim($_POST['type']);
 $cmd = trim($_POST['cmd']);
 
 switch ($type) {
-//DATA TEKNISI
-	case 'data_teknisi':
+	//DATA User
+	case 'data_user':
 		if ($cmd=="tambah") {
 			if($_POST['password'] == $_POST['password_confirmation']){
 				mysqli_query($conn, "INSERT INTO pengguna(email, nama, password, no_telp, status)
@@ -14,9 +14,9 @@ switch ($type) {
 						'$_POST[nama]',
 						'password_hash($_POST[password], PASSWORD_BCRYPT)',
 						'$_POST[no_telp]',
-						'se')");	
+						'$_POST[role]')");	
 			}else{
-				echo "<script>alert('Gagal menambahkan teknisi, password tidak sama.'); window.location = 'tambah.php?tambah=data_teknisi'</script>";	
+				echo "<script>alert('Gagal menambahkan teknisi, password tidak sama.'); window.location = 'tambah.php?tambah=data_user'</script>";	
 				die();
 			}
 			
@@ -28,7 +28,8 @@ switch ($type) {
 				"UPDATE pengguna SET 
 					email='$_POST[email]',
 					nama='$_POST[nama]',
-					no_telp='$_POST[no_telp]'";
+					no_telp='$_POST[no_telp]',
+					status='$_POST[role]'";
 
 			if($user->password != $_POST['password']){
 				echo "harusnya ganti password";
@@ -37,7 +38,7 @@ switch ($type) {
 						PASSWORD_BCRYPT);
 					$query_update .= " ,password='$password'";
 				}else{
-					echo "<script>alert('Gagal menambahkan teknisi, password tidak sama.'); window.location = 'edit.php?edit=data_teknisi&id=2'</script>";
+					echo "<script>alert('Gagal menambahkan teknisi, password tidak sama.'); window.location = 'edit.php?edit=data_user&id=2'</script>";
 					die();	
 				}
 				
@@ -49,53 +50,7 @@ switch ($type) {
 		else {
 			die(); //jika bukan tambah atau edit, lalu apa ? die aja lah :p
 		}
-		header('Location:index.php?page=data_teknisi');
-	break;
-//DATA ADMIN
-	case 'data_admin':
-		if ($cmd=="tambah") {
-			if($_POST['password'] == $_POST['password_confirmation']){
-				mysqli_query($conn, "INSERT INTO pengguna(email, nama, password, no_telp, status)
-				VALUES('$_POST[email]',
-						'$_POST[nama]',
-						'password_hash($_POST[password], PASSWORD_BCRYPT)',
-						'$_POST[no_telp]',
-						'admin')");	
-			}else{
-				echo "<script>alert('Gagal menambahkan teknisi, password tidak sama.'); window.location = 'tambah.php?tambah=data_admin'</script>";	
-				die();
-			}
-			
-		}
-		elseif($cmd=="edit") {
-			$res = mysqli_query($conn, "SELECT * FROM pengguna WHERE id='$_POST[id]'");
-			$user = mysqli_fetch_object($res);
-			$query_update = 
-				"UPDATE pengguna SET 
-					email='$_POST[email]',
-					nama='$_POST[nama]',
-					no_telp='$_POST[no_telp]'";
-
-			if($user->password != $_POST['password']){
-				echo "harusnya ganti password";
-				if($_POST['password'] == $_POST['password_confirmation']){
-					$password = password_hash($_POST['password'], 
-						PASSWORD_BCRYPT);
-					$query_update .= " ,password='$password'";
-				}else{
-					echo "<script>alert('Gagal menambahkan teknisi, password tidak sama.'); window.location = 'edit.php?edit=data_admin&id=2'</script>";
-					die();	
-				}
-				
-			}
-
-			$query_update .= " WHERE id='$_POST[id]'";
-			mysqli_query($conn, $query_update);
-		}
-		else {
-			die(); //jika bukan tambah atau edit, lalu apa ? die aja lah :p
-		}
-		header('Location:index.php?page=data_admin');
+		header('Location:index.php?page=data_user');
 	break;
 //DATA PELANGGAN
 	case 'data_pelanggan':
@@ -149,6 +104,28 @@ switch ($type) {
 		}
 		header('Location:index.php?page=data_pic');
 	break;
+//DATA TIPE AGENDA
+	case 'data_tipe_agenda':
+		if ($cmd=="tambah") {
+			mysqli_query($conn, "INSERT INTO agenda_tipe(nama, warna)
+			VALUES('$_POST[nama]',
+					'$_POST[warna]')");	
+		}
+		elseif($cmd=="edit") {
+			$query_update = 
+				"UPDATE agenda_tipe SET 
+					nama='$_POST[nama]',
+					warna='$_POST[warna]' 
+					 WHERE id='$_POST[id]'";
+
+			mysqli_query($conn, $query_update);
+		}
+		else {
+			die(); //jika bukan tambah atau edit, lalu apa ? die aja lah :p
+		}
+		header('Location:index.php?page=data_tipe_agenda');
+	break;
+
 
 //DATA ADMIN
 	case 'admin':

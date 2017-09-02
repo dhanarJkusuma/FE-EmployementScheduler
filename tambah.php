@@ -8,6 +8,7 @@
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <!-- Bootstrap 3.3.2 -->
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="plugins/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css">
     <!-- FontAwesome 4.3.0 -->
     <!-- Ionicons 2.0.0 -->
     <!-- Theme style -->
@@ -17,15 +18,18 @@
          folder instead of downloading all of them to reduce the load. -->
     <link href="dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
     <!-- iCheck -->
-    <link href="plugins/iCheck/flat/blue.css" rel="stylesheet" type="text/css" />
+
+    <!-- Select2 -->
+    <link rel="stylesheet" href="plugins/select2/dist/css/select2.min.css">
+    
     <link href="plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
    <!--  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" /> -->
     <!-- Morris chart -->
     <!-- jvectormap -->
     <!-- Date Picker -->
-    <link href="plugins/datepicker/datepicker3.css" rel="stylesheet" type="text/css" />
+    <link href="plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css" rel="stylesheet" type="text/css" />
     <!-- Daterange picker -->
-    <link href="plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
+    
     <!-- bootstrap wysihtml5 - text editor -->
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -73,14 +77,9 @@
                 <i class="fa fa-dashboard"></i> <span>Dashboard</span>
               </a>
             </li>
-            <li class="treeview <?php if(isset($_GET['tambah']) && $_GET['tambah']=="data_admin") { echo "active"; } ?>">
-              <a href="./?page=data_admin">
-                <i class="fa fa-user-md"></i> <span>Data Admin</span>
-              </a>
-            </li>
-            <li class="treeview <?php if(isset($_GET['tambah']) && $_GET['tambah']=="data_teknisi") { echo "active"; } ?>">
-              <a href="./?page=data_teknisi">
-                <i class="fa fa-user"></i> <span>Data Teknisi</span>
+            <li class="treeview <?php if(isset($_GET['tambah']) && $_GET['tambah']=="data_user") { echo "active"; } ?>">
+              <a href="./?page=data_user">
+                <i class="fa fa-user-md"></i> <span>Data Pengguna</span>
               </a>
             </li>
             <li class="treeview <?php if(isset($_GET['tambah']) && $_GET['tambah']=="data_pelanggan") { echo "active"; } ?>">
@@ -93,27 +92,22 @@
                 <i class="fa fa-phone-square "></i> <span>Data PIC</span>
               </a>
             </li>
+            <li class="treeview <?php if(isset($_GET['tambah']) && $_GET['tambah']=="data_tipe_agenda") { echo "active"; } ?>">
+              <a href="./?page=data_tipe_agenda">
+                <i class="fa fa-file"></i> <span>Tipe Agenda</span>
+              </a>
+            </li>
             <li class="treeview <?php if(isset($_GET['tambah']) && $_GET['tambah']=="agenda") { echo "active"; } ?>">
               <a href="./?page=agenda">
                 <i class="fa fa-file"></i> <span>Agenda</span>
               </a>
             </li>
-            <?php if(!isset($_SESSION['username'])): ?>
-             <li class="treeview">
-              <a href="login.php">
-                <i class="fa fa-lock"></i> <span>Login</span>
-              </a>
-            </li>
-          <?php else: ?>
-            <li class="header">MENU ADMIN</li>
-            <li class="<?php if(isset($_GET['tambah']) && $_GET['tambah']=="admin") { echo "active"; } ?>">
-            <a href="./?page=admin"><i class="fa fa-user text-warning"></i> Manajemen User</a></li>
+           <li class="header">MENU USER</li>
             <li class="treeview">
               <a href="logout.php">
                 <i class="fa fa-backward text-danger"></i> <span>Log Out</span>
               </a>
             </li>
-          <?php endif; ?>
           </ul>
         </section>
         <!-- /.sidebar -->
@@ -161,6 +155,7 @@
     </script>
     <!-- Bootstrap 3.3.2 JS -->
     <script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="plugins/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
     <!-- Morris.js charts -->
     <!-- Sparkline -->
     <!-- jvectormap -->
@@ -168,7 +163,7 @@
     <script src="plugins/knob/jquery.knob.js" type="text/javascript"></script>
     <!-- daterangepicker -->
     <!-- datepicker -->
-    <script src="plugins/datepicker/bootstrap-datepicker.js" type="text/javascript"></script>
+    <script src="plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.js" type="text/javascript"></script>
     <!-- Bootstrap WYSIHTML5 -->
     <!-- iCheck -->
     <!-- Slimscroll -->
@@ -177,7 +172,9 @@
     <script src='plugins/fastclick/fastclick.min.js'></script>
     <!-- AdminLTE App -->
     <script src="dist/js/app.min.js" type="text/javascript"></script>
-
+  <script>
+      $('.colorpicker').colorpicker()
+    </script>
 
 
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->

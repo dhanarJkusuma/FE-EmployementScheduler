@@ -10,8 +10,8 @@ if (isset($_GET['hapus'])) {
 			mysqli_query($conn, "DELETE FROM pelanggan WHERE id=".$_GET['id']);
 			header('Location:index.php?page='.$_GET['hapus']);
 			break;
-		case 'data_pembelian':
-			mysql_query("DELETE FROM user WHERE id=".$_GET['id']);
+		case 'data_tipe_agenda':
+			mysqli_query($conn, "DELETE FROM agenda_tipe WHERE id=".$_GET['id']);
 			header('Location:index.php?page='.$_GET['hapus']);
 			break;
 		case 'data_teknisi':
