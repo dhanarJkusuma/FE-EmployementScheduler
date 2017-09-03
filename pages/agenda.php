@@ -2,7 +2,7 @@
 	require 'config/main.php';
 	$query=mysqli_query($conn, "SELECT * FROM pengguna WHERE status='admin'");
   $queryTipe=mysqli_query($conn, "SELECT * FROM agenda_tipe");
-  $queryPIC = mysqli_query($conn, "SELECT * FROM pengguna WHERE status='se'");
+  $queryPIC = mysqli_query($conn, "SELECT * FROM pengguna WHERE status<>'sa'");
 ?>
 
 
