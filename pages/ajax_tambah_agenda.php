@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 	require "../config/main.php";
 
@@ -6,11 +6,12 @@
 	$pic = $_POST['pic'];
 	$data = json_decode($pic);
 	$tipe = $_POST['tipe'];
+	$lokasi = $_POST['lokasi'];
 	$deskripsi = $_POST['deskripsi'];
 	$startDate = $_POST['startDate'];
 	$endDate = $_POST['endDate'];
 
-	$queryAgenda = "INSERT INTO agenda(agenda_tipe_id, deskripsi, tgl_mulai, tgl_akhir) VALUES ('$tipe', '$deskripsi', '$startDate', '$endDate') ";
+	$queryAgenda = "INSERT INTO agenda(agenda_tipe_id, pelanggan_id, deskripsi, tgl_mulai, tgl_akhir) VALUES ('$tipe', '$lokasi','$deskripsi', '$startDate', '$endDate') ";
 
 	if (mysqli_query($conn, $queryAgenda)) {
 	    $last_id = mysqli_insert_id($conn);
@@ -30,7 +31,8 @@
 	    echo json_encode(
 	    	array(
 	    		"status" => false,
-	    		"message" => "error database"
+	    		"message" => "error database",
+					"query" => $queryAgenda
 	    	)
 	    );
 	}

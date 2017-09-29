@@ -1,8 +1,9 @@
-<?php 
+<?php
 	require 'config/main.php';
 	$query=mysqli_query($conn, "SELECT * FROM pengguna WHERE status='admin'");
   $queryTipe=mysqli_query($conn, "SELECT * FROM agenda_tipe");
   $queryPIC = mysqli_query($conn, "SELECT * FROM pengguna WHERE status<>'sa'");
+	$queryPelanggan = mysqli_query($conn, "SELECT * FROM pelanggan");
 ?>
 
 
@@ -32,14 +33,23 @@
               <input type="hidden" id="agenda_id" value="-1" />
               <input type="hidden" id="startDate"  />
               <input type="hidden" id="endDate"  />
-              <label>PIC</label>
-              <select class="form-control select2" multiple="multiple" data-placeholder="Pilih PIC" id="pic" 
+              <label>Ditugaskan kepada :</label>
+              <select class="form-control select2" multiple="multiple" data-placeholder="Pilih Pegawai" id="pic"
                       style="width: 100%;" name="pic">
                 <?php while($row = mysqli_fetch_object($queryPIC)){ ?>
                     <option value="<?= $row->id ?>"><?= $row->nama ?></option>
                 <?php } ?>
               </select>
             </div>
+
+						<div class="form-group">
+							<label>Lokasi</label>
+							<select class="form-control" name="lokasi" id="lokasi">
+                <?php while($row = mysqli_fetch_object($queryPelanggan)){ ?>
+                    <option value="<?= $row->id ?>"><?= $row->nama ?></option>
+                <?php } ?>
+              </select>
+						</div>
 
            <div class="form-group">
               <label>Tipe Agenda</label>
@@ -116,7 +126,7 @@ var date = new Date(),
     select: function(start, end, allDay) {
 
         // cleanup form
-        
+
         window.ev_id = null;
 
         window.started = start.format("YYYY-MM-DD");
@@ -126,7 +136,7 @@ var date = new Date(),
         $('#endDate').val(end.format());
 
         $('#add-agenda').modal('show');
-        
+
         calendar.fullCalendar('unselect');
     },
     // edit
@@ -135,9 +145,6 @@ var date = new Date(),
         // TODO: Mengirimkan parameter id event agar ke load data
         var ev_id = calEvent.calendar_id;
         window.ev_id = ev_id;
-        
-        console.log(calEvent);
-
         window.started = calEvent.start.format("YYYY-MM-DD");
         window.ended = calEvent.end.format("YYYY-MM-DD");
 
@@ -151,7 +158,7 @@ var date = new Date(),
         $('.select2').select2().val(pics).trigger("change");
 
         $('#tipe').val(calEvent.tipe);
-        $('#deskripsi').text(calEvent.deskripsi);
+        $('#deskripsi').val(calEvent.deskripsi);
         $('#startDate').val(calEvent.startDate);
         $('#endDate').val(calEvent.endDate);
         $("#delete-btn").show();
@@ -172,15 +179,15 @@ var date = new Date(),
                callback(data.events);
             }
         },"json");
-        
+
     },
     eventDrop: function(event, delta, revertFunc) {
-      
+
       var id = event.calendar_id;
       var startDate = event.startDate;
       var endDate = event.endDate;
       var days = delta._days;
-      
+
       var url = "pages/ajax_edit_date_agenda.php";
       $.ajax({
         type: "POST",
@@ -192,16 +199,17 @@ var date = new Date(),
           }
         },
         dataType: "json"
-      }); 
+      });
     }
 });
 
 $('.select2').select2();
 
 $('#form-submit').on('submit', function(e){
-    e.preventDefault(); 
+    e.preventDefault();
     var pic = JSON.stringify($('#pic').select2("data"));
     var tipe = $('#tipe').val();
+		var lokasi = $('#lokasi').val();
     var deskripsi = $('#deskripsi').val();
     var startDate = $('#startDate').val();
     var endDate = $('#endDate').val();
@@ -216,7 +224,7 @@ $('#form-submit').on('submit', function(e){
       $.ajax({
         type: "POST",
         url: url,
-        data: { id:id, pic:pic, tipe:tipe, deskripsi: deskripsi, startDate: startDate, endDate: endDate},
+        data: { id:id, pic:pic, lokasi:lokasi, tipe:tipe, deskripsi: deskripsi, startDate: startDate, endDate: endDate},
         success: function(data){
           if(data.status){
             $('#add-agenda').modal('hide');
@@ -225,13 +233,13 @@ $('#form-submit').on('submit', function(e){
           }
         },
         dataType: "json"
-      }); 
+      });
     }else{
       var url = "pages/ajax_tambah_agenda.php";
       $.ajax({
         type: "POST",
         url: url,
-        data: { pic:pic, tipe:tipe, deskripsi: deskripsi, startDate: startDate, endDate: endDate},
+        data: { pic:pic, tipe:tipe, lokasi:lokasi, deskripsi: deskripsi, startDate: startDate, endDate: endDate},
         success: function(data){
           if(data.status){
             $('#add-agenda').modal('hide');
@@ -240,8 +248,8 @@ $('#form-submit').on('submit', function(e){
           }
         },
         dataType: "json"
-      }); 
-    }    
+      });
+    }
   });
 
 $('#delete-btn').on('click', function(){
@@ -273,7 +281,7 @@ $('#delete-btn').on('click', function(){
           }
         },
         dataType: "json"
-      }); 
+      });
       e.preventDefault();
   });
 

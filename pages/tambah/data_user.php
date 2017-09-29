@@ -8,7 +8,7 @@
 	        </div><!-- /.box-header -->
 	        <div class="box-body">
 	          <form role="form" method="post" action="simpan.php">
-	          <input type="hidden" name="type" value="data_admin">
+	          <input type="hidden" name="type" value="data_user">
 	           <input type="hidden" name="cmd" value="tambah">
 	            <!-- text input -->
 	            <div class="form-group">

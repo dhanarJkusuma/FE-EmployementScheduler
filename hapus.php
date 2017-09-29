@@ -3,7 +3,7 @@ if (isset($_GET['hapus'])) {
 	require "config/main.php";
 	switch ($_GET['hapus']) {
 		case 'data_user':
-			mysql_query("DELETE FROM user1 WHERE id=".$_GET['id']);
+			mysqli_query($conn, "DELETE FROM pengguna WHERE id=".$_GET['id']);
 			header('Location:index.php?page='.$_GET['hapus']);
 			break;
 		case 'data_pelanggan':

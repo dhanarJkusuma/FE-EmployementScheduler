@@ -1,8 +1,8 @@
 <?php
-$server = "localhost"; //nama server
-$username = "root"; // username
-$password = ""; //  standarnya kosong
-$database = "jabetto-schedule"; // buat nama database harus sama
+$server = "localhost:3306"; //nama server
+$username = "penjadwalan"; // username
+$password = "admindb"; //  standarnya kosong
+$database = "penjadwalan"; // buat nama database harus sama
 
 // Koneksi dan memilih database di server
 $conn = new mysqli($server, $username, $password, $database);
@@ -11,5 +11,5 @@ $conn = new mysqli($server, $username, $password, $database);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-	
+
 ?>

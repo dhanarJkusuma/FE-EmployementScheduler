@@ -5,7 +5,7 @@
 	      <div class="box box-warning">
 	        <div class="box-header">
 	          <h3 class="box-title">Tambah Pelanggan</h3>
-	        </div><!-- /.box-header -->
+	        </div><!-- /.box-header --> 
 	        <div class="box-body">
 	          <form role="form" method="post" action="simpan.php">
 	          <input type="hidden" name="type" value="data_pelanggan">

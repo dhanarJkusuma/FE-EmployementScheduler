@@ -26,7 +26,7 @@
         <div class="icon">
           <i class="fa fa-users"></i>
         </div>
-        <a href="./?page=data_pelanggan" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
+        <a href="./?page=data_pelanggan" class="small-box-footper">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
       </div>
     </div><!-- ./col -->
   </div><!-- /.row -->
