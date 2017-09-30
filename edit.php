@@ -96,17 +96,19 @@
                 <i class="fa fa-th"></i> <span>Data Pelanggan</span>
               </a>
             </li>
-            <li class="treeview <?php if(isset($_GET['edit']) && $_GET['edit']=="data_tipe_agenda") { echo "active"; } ?>">
-              <a href="./?page=data_tipe_agenda">
-                <i class="fa fa-tag"></i> <span>Tipe Agenda</span>
-              </a>
-            </li>
             <?php } ?>
             <li class="treeview <?php if(isset($_GET['edit']) && $_GET['edit']=="data_pic") { echo "active"; } ?>">
               <a href="./?page=data_pic">
                 <i class="fa fa-phone-square "></i> <span>Data PIC</span>
               </a>
             </li>
+            <?php if($_SESSION['status'] == "sa" || $_SESSION['status'] == "admin"){ ?>
+            <li class="treeview <?php if(isset($_GET['edit']) && $_GET['edit']=="data_tipe_agenda") { echo "active"; } ?>">
+              <a href="./?page=data_tipe_agenda">
+                <i class="fa fa-tag"></i> <span>Tipe Agenda</span>
+              </a>
+            </li>
+            <?php } ?>
             <li class="treeview <?php if(isset($_GET['edit']) && $_GET['edit']=="agenda") { echo "active"; } ?>">
               <a href="./?page=agenda">
                 <i class="fa fa-calendar"></i> <span>Agenda</span>
