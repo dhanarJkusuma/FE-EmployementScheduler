@@ -1,10 +1,10 @@
 <?php
-$BASE_URL = "http://localhost/Penjadwalan-yogi";
+$BASE_URL = "http://localhost/ta";
 $SSL = false;
 $server = "localhost:3306"; //nama server
-$username = "penjadwalan"; // username
-$password = "admindb"; //  standarnya kosong
-$database = "penjadwalan"; // buat nama database harus sama
+$username = "root"; // username
+$password = ""; //  standarnya kosong
+$database = "jabetto-scheduler"; // buat nama database harus sama
 
 // Koneksi dan memilih database di server
 $conn = new mysqli($server, $username, $password, $database);
