@@ -67,14 +67,13 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-danger" id="delete-btn">Hapus</button>
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+          <button type="submit" class="btn btn-primary">Simpan</button>
         </div>
       </form>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
 
 <div class="modal fade" tabindex="-1" role="dialog" id="hapus-dialog">
   <div class="modal-dialog" role="document">
@@ -89,8 +88,8 @@
           <input type="hidden" id="agenda_id_delete"/>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+          <button type="submit" class="btn btn-primary">Ya</button>
         </div>
       </form>
     </div><!-- /.modal-content -->
@@ -124,9 +123,8 @@ var date = new Date(),
     selectHelper: true,
     // create
     select: function(start, end, allDay) {
-
+			<?php if($_SESSION['status'] == "sa" || $_SESSION['status'] == "admin"){ ?>
         // cleanup form
-
         window.ev_id = null;
 
         window.started = start.format("YYYY-MM-DD");
@@ -136,13 +134,14 @@ var date = new Date(),
         $('#endDate').val(end.format());
 
         $('#add-agenda').modal('show');
-
-        calendar.fullCalendar('unselect');
+			<?php } ?>
+			calendar.fullCalendar('unselect');
     },
     // edit
     eventClick: function(calEvent, jsEvent, view) {
 
         // TODO: Mengirimkan parameter id event agar ke load data
+			<?php if($_SESSION['status'] == "sa" || $_SESSION['status'] == "admin"){ ?>
         var ev_id = calEvent.calendar_id;
         window.ev_id = ev_id;
         window.started = calEvent.start.format("YYYY-MM-DD");
@@ -164,8 +163,8 @@ var date = new Date(),
         $("#delete-btn").show();
         $('#add-agenda').modal('show');
 
-
-        calendar.fullCalendar('unselect');
+			<?php } ?>
+      calendar.fullCalendar('unselect');
 
     },
     editable: true,
@@ -215,41 +214,44 @@ $('#form-submit').on('submit', function(e){
     var endDate = $('#endDate').val();
 
 
+		if(pic.length > 0 && tipe.length > 0 && lokasi.length > 0 && deskripsi.length > 0 && startDate.length > 0 && endDate.length > 0){
+			var id = $('#agenda_id').val();
+			if(id!=-1){
+				var url = "pages/ajax_edit_agenda.php";
+				$.ajax({
+					type: "POST",
+					url: url,
+					data: { id:id, pic:pic, lokasi:lokasi, tipe:tipe, deskripsi: deskripsi, startDate: startDate, endDate: endDate},
+					success: function(data){
+						if(data.status){
+							$('#add-agenda').modal('hide');
+							$('#calendar').fullCalendar( 'refetchEvents' );
+							resetField();
+						}
+					},
+					dataType: "json"
+				});
+			}else{
+				var url = "pages/ajax_tambah_agenda.php";
+				$.ajax({
+					type: "POST",
+					url: url,
+					data: { pic:pic, tipe:tipe, lokasi:lokasi, deskripsi: deskripsi, startDate: startDate, endDate: endDate},
+					success: function(data){
+						if(data.status){
+							$('#add-agenda').modal('hide');
+							$('#calendar').fullCalendar( 'refetchEvents' );
+							resetField();
+						}
+					},
+					dataType: "json"
+				});
+			}
+		}else{
+			alert("Data tidak boleh kosong.");
+		}
 
-    var id = $('#agenda_id').val();
 
-
-    if(id!=-1){
-      var url = "pages/ajax_edit_agenda.php";
-      $.ajax({
-        type: "POST",
-        url: url,
-        data: { id:id, pic:pic, lokasi:lokasi, tipe:tipe, deskripsi: deskripsi, startDate: startDate, endDate: endDate},
-        success: function(data){
-          if(data.status){
-            $('#add-agenda').modal('hide');
-            $('#calendar').fullCalendar( 'refetchEvents' );
-            resetField();
-          }
-        },
-        dataType: "json"
-      });
-    }else{
-      var url = "pages/ajax_tambah_agenda.php";
-      $.ajax({
-        type: "POST",
-        url: url,
-        data: { pic:pic, tipe:tipe, lokasi:lokasi, deskripsi: deskripsi, startDate: startDate, endDate: endDate},
-        success: function(data){
-          if(data.status){
-            $('#add-agenda').modal('hide');
-            $('#calendar').fullCalendar( 'refetchEvents' );
-            resetField();
-          }
-        },
-        dataType: "json"
-      });
-    }
   });
 
 $('#delete-btn').on('click', function(){

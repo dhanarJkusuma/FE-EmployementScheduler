@@ -40,7 +40,7 @@
 	            </div>
 	            <button type="submit" class="btn btn-success"> <i class="fa fa-save"></i> Simpan</button>
 	            <button type="reset" class="btn btn-warning"> <i class="fa fa-trash"></i> Reset</button>
-	            <a href="index.php?page=data_admin" class="btn btn-danger"> <i class="fa fa-times"></i> Batal</a>
+	            <a href="index.php?page=data_user" class="btn btn-danger"> <i class="fa fa-times"></i> Batal</a>
 	          </form>
 	        </div><!-- /.box-body -->
 	      </div><!-- /.box -->

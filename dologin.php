@@ -27,7 +27,9 @@ if ($hitung > 0){
 	$_SESSION['nama'] = $user->nama;
 	$_SESSION['status'] = $user->status;
 	$_SESSION['no_telp'] = $user->no_telp;
-	
+	$_SESSION['status'] = $user->status;
+
+
 	//print_r($user);
 	header('Location:index.php');
 }else{

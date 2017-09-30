@@ -17,7 +17,7 @@
          folder instead of downloading all of them to reduce the load. -->
     <link href="dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
     <!-- iCheck -->
-    
+
     <link href="plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
    <!--  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" /> -->
     <!-- Morris chart -->
@@ -25,7 +25,7 @@
     <!-- Date Picker -->
     <link href="plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css" rel="stylesheet" type="text/css" />
     <!-- Daterange picker -->
-    
+
     <!-- bootstrap wysihtml5 - text editor -->
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -56,13 +56,10 @@
         <section class="sidebar">
           <!-- Sidebar user panel -->
           <div class="user-panel">
-            <div class="pull-left image">
-              <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
-            </div>
             <div class="pull-left info">
               <p><?php echo $_SESSION['nama']; ?></p>
 
-              <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+              <a href="#"><i class="fa fa-circle text-success"></i> <?= $_SESSION['email'] ?></a>
             </div>
           </div>
           <!-- sidebar menu: : style can be found in sidebar.less -->
@@ -73,6 +70,7 @@
                 <i class="fa fa-dashboard"></i> <span>Dashboard</span>
               </a>
             </li>
+            <?php if($_SESSION['status'] == "sa" || $_SESSION['status'] == "admin"){ ?>
             <li class="treeview <?php if(isset($_GET['edit']) && $_GET['edit']=="data_user") { echo "active"; } ?>">
               <a href="./?page=data_user">
                 <i class="fa fa-user-md"></i> <span>Data Pengguna</span>
@@ -83,19 +81,25 @@
                 <i class="fa fa-th"></i> <span>Data Pelanggan</span>
               </a>
             </li>
+            <li class="treeview <?php if(isset($_GET['edit']) && $_GET['edit']=="data_tipe_agenda") { echo "active"; } ?>">
+              <a href="./?page=data_tipe_agenda">
+                <i class="fa fa-tag"></i> <span>Tipe Agenda</span>
+              </a>
+            </li>
+            <?php } ?>
             <li class="treeview <?php if(isset($_GET['edit']) && $_GET['edit']=="data_pic") { echo "active"; } ?>">
               <a href="./?page=data_pic">
                 <i class="fa fa-phone-square "></i> <span>Data PIC</span>
               </a>
             </li>
-            <li class="treeview <?php if(isset($_GET['edit']) && $_GET['edit']=="data_tipe_agenda") { echo "active"; } ?>">
-              <a href="./?page=data_tipe_agenda">
-                <i class="fa fa-file"></i> <span>Tipe Agenda</span>
-              </a>
-            </li>
             <li class="treeview <?php if(isset($_GET['edit']) && $_GET['edit']=="agenda") { echo "active"; } ?>">
               <a href="./?page=agenda">
-                <i class="fa fa-file"></i> <span>Agenda</span>
+                <i class="fa fa-calendar"></i> <span>Agenda</span>
+              </a>
+            </li>
+            <li class="treeview <?php if(isset($_GET['edit']) && $_GET['edit']=="data_report") { echo "active"; } ?>">
+              <a href="./?page=data_report">
+                <i class="fa fa-file"></i> <span>Laporan</span>
               </a>
             </li>
             <li class="header">MENU USER</li>

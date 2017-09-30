@@ -3,7 +3,7 @@
 	$date = date('D, d M Y');
 
 	$cDate = date('Y-m-d');
-	$query = mysqli_query($conn, "SELECT agenda.id, agenda.deskripsi, agenda_tipe.nama as tipe FROM agenda,agenda_tipe WHERE agenda.agenda_tipe_id=agenda_tipe.id and agenda.tgl_mulai='$cDate'");
+	$query = mysqli_query($conn, "SELECT agenda.id, agenda.deskripsi, agenda_tipe.nama as tipe, pelanggan.nama as lokasi FROM agenda,agenda_tipe,pelanggan WHERE agenda.agenda_tipe_id=agenda_tipe.id and agenda.pelanggan_id=pelanggan.id and agenda.tgl_mulai='$cDate'");
 
 ?>
 <div class="row">
@@ -49,7 +49,8 @@
                 <h3 class="timeline-header"><?= $title ?> </h3>
 
                 <div class="timeline-body">
-             		<?= $row->deskripsi ?>
+									<i class="fa fa-map-marker" aria-hidden="true"></i> &nbsp; <?= $row->lokasi ?> </br>
+             			<?= $row->deskripsi ?>
                 </div>
               </div>
             </li>
@@ -57,7 +58,7 @@
             <?php } ?>
             <!-- END timeline item -->
             <!-- timeline item -->
-         
+
             <li>
               <i class="fa fa-clock-o bg-gray"></i>
             </li>

@@ -1,10 +1,10 @@
-<?php 
+<?php
 	require 'config/main.php';
 	$query=mysqli_query($conn, "SELECT * FROM pengguna where status<>'sa'");
 ?>
 <div class="box">
     <div class="box-header">
-      <h3 class="box-title">Data Admin (Terdapat <?php echo mysqli_num_rows($query); ?> Data)</h3>
+      <h3 class="box-title">Data Pengguna (Terdapat <?php echo mysqli_num_rows($query); ?> Data)</h3>
     </div><!-- /.box-header -->
     <div class="box-body">
     <a href="tambah.php?tambah=data_user" style="margin-bottom: 10px;" class="btn btn-md btn-primary"> <i class="fa fa-plus"></i> Tambah Data Admin IT</a>
@@ -14,9 +14,9 @@
 			 <tr>
          		<th>No</th>
          		<th>Nama</th>
-			   	<th>Email</th>
-			   	<th>Telpon</th>
-			   	<th>Posisi</th>
+				   	<th>Email</th>
+				   	<th>Telpon</th>
+				   	<th>Posisi</th>
 		        <th>Action</th>
 		  	</tr>
 		</thead>

@@ -1,4 +1,4 @@
-<?php 
+<?php
 	require 'config/main.php';
 	$query=mysqli_query($conn, "SELECT * FROM agenda_tipe");
 ?>
@@ -14,7 +14,7 @@
 			 <tr>
          		<th>No</th>
          		<th>Nama</th>
-			   	<th>Warna</th>
+			   		<th>Warna</th>
 		        <th>Action</th>
 		  	</tr>
 		</thead>

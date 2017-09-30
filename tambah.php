@@ -21,7 +21,7 @@
 
     <!-- Select2 -->
     <link rel="stylesheet" href="plugins/select2/dist/css/select2.min.css">
-    
+
     <link href="plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
    <!--  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" /> -->
     <!-- Morris chart -->
@@ -29,7 +29,7 @@
     <!-- Date Picker -->
     <link href="plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css" rel="stylesheet" type="text/css" />
     <!-- Daterange picker -->
-    
+
     <!-- bootstrap wysihtml5 - text editor -->
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -77,6 +77,7 @@
                 <i class="fa fa-dashboard"></i> <span>Dashboard</span>
               </a>
             </li>
+            <?php if($_SESSION['status'] == "sa" || $_SESSION['status'] == "admin"){ ?>
             <li class="treeview <?php if(isset($_GET['tambah']) && $_GET['tambah']=="data_user") { echo "active"; } ?>">
               <a href="./?page=data_user">
                 <i class="fa fa-user-md"></i> <span>Data Pengguna</span>
@@ -87,22 +88,28 @@
                 <i class="fa fa-th"></i> <span>Data Pelanggan</span>
               </a>
             </li>
+            <li class="treeview <?php if(isset($_GET['tambah']) && $_GET['tambah']=="data_tipe_agenda") { echo "active"; } ?>">
+              <a href="./?page=data_tipe_agenda">
+                <i class="fa fa-tag"></i> <span>Tipe Agenda</span>
+              </a>
+            </li>
+            <?php } ?>
             <li class="treeview <?php if(isset($_GET['tambah']) && $_GET['tambah']=="data_pic") { echo "active"; } ?>">
               <a href="./?page=data_pic">
                 <i class="fa fa-phone-square "></i> <span>Data PIC</span>
               </a>
             </li>
-            <li class="treeview <?php if(isset($_GET['tambah']) && $_GET['tambah']=="data_tipe_agenda") { echo "active"; } ?>">
-              <a href="./?page=data_tipe_agenda">
-                <i class="fa fa-file"></i> <span>Tipe Agenda</span>
-              </a>
-            </li>
             <li class="treeview <?php if(isset($_GET['tambah']) && $_GET['tambah']=="agenda") { echo "active"; } ?>">
               <a href="./?page=agenda">
-                <i class="fa fa-file"></i> <span>Agenda</span>
+                <i class="fa fa-calendar"></i> <span>Agenda</span>
               </a>
             </li>
-           <li class="header">MENU USER</li>
+            <li class="treeview <?php if(isset($_GET['tambah']) && $_GET['tambah']=="data_report") { echo "active"; } ?>">
+              <a href="./?page=data_report">
+                <i class="fa fa-file"></i> <span>Laporan</span>
+              </a>
+            </li>
+            <li class="header">MENU USER</li>
             <li class="treeview">
               <a href="logout.php">
                 <i class="fa fa-backward text-danger"></i> <span>Log Out</span>

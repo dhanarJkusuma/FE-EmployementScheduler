@@ -1,7 +1,8 @@
 <?php session_start(); ?>
 <?php
+
   if($_SESSION['email']==null){
-    header('Location: login.php');
+   header('Location: login.php');
   }
 ?>
 <!DOCTYPE html>
@@ -35,6 +36,7 @@
     <!-- Daterange picker -->
     <!-- <link href="plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" /> -->
     <link href="plugins/fullcalendar/fullcalendar.min.css" rel="stylesheet"/>
+    <link href="plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" rel="stylesheet"/>
     <!-- bootstrap wysihtml5 - text editor -->
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -68,13 +70,10 @@
         <section class="sidebar">
           <!-- Sidebar user panel -->
           <div class="user-panel">
-            <div class="pull-left image">
-              <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
-            </div>
             <div class="pull-left info">
               <p><?php echo $_SESSION['nama']; ?></p>
 
-              <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+              <a href="#"><i class="fa fa-circle text-success"></i> <?= $_SESSION['email']; ?></a>
             </div>
           </div>
           <!-- sidebar menu: : style can be found in sidebar.less -->
@@ -85,6 +84,7 @@
                 <i class="fa fa-dashboard"></i> <span>Dashboard</span>
               </a>
             </li>
+            <?php if($_SESSION['status'] == "sa" || $_SESSION['status'] == "admin"){ ?>
             <li class="treeview <?php if(isset($_GET['page']) && $_GET['page']=="data_user") { echo "active"; } ?>">
               <a href="./?page=data_user">
                 <i class="fa fa-user-md"></i> <span>Data Pengguna</span>
@@ -95,19 +95,25 @@
                 <i class="fa fa-th"></i> <span>Data Pelanggan</span>
               </a>
             </li>
+            <li class="treeview <?php if(isset($_GET['page']) && $_GET['page']=="data_tipe_agenda") { echo "active"; } ?>">
+              <a href="./?page=data_tipe_agenda">
+                <i class="fa fa-tag"></i> <span>Tipe Agenda</span>
+              </a>
+            </li>
+            <?php } ?>
             <li class="treeview <?php if(isset($_GET['page']) && $_GET['page']=="data_pic") { echo "active"; } ?>">
               <a href="./?page=data_pic">
                 <i class="fa fa-phone-square "></i> <span>Data PIC</span>
               </a>
             </li>
-            <li class="treeview <?php if(isset($_GET['page']) && $_GET['page']=="data_tipe_agenda") { echo "active"; } ?>">
-              <a href="./?page=data_tipe_agenda">
-                <i class="fa fa-file"></i> <span>Tipe Agenda</span>
-              </a>
-            </li>
             <li class="treeview <?php if(isset($_GET['page']) && $_GET['page']=="agenda") { echo "active"; } ?>">
               <a href="./?page=agenda">
-                <i class="fa fa-file"></i> <span>Agenda</span>
+                <i class="fa fa-calendar"></i> <span>Agenda</span>
+              </a>
+            </li>
+            <li class="treeview <?php if(isset($_GET['page']) && $_GET['page']=="data_report") { echo "active"; } ?>">
+              <a href="./?page=data_report">
+                <i class="fa fa-file"></i> <span>Laporan</span>
               </a>
             </li>
             <li class="header">MENU USER</li>
@@ -178,7 +184,7 @@
     <script src="plugins/knob/jquery.knob.js" type="text/javascript"></script>
     <!-- daterangepicker -->
     <!-- datepicker -->
-    <!-- <script src="plugins/datepicker/bootstrap-datepicker.js" type="text/javascript"></script> -->
+    <script src="plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
     <!-- Bootstrap WYSIHTML5 -->
     <!-- iCheck -->
     <!-- Slimscroll -->

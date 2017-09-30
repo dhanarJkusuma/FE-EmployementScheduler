@@ -1,4 +1,6 @@
 <?php
+$BASE_URL = "http://localhost/Penjadwalan-yogi";
+$SSL = false;
 $server = "localhost:3306"; //nama server
 $username = "penjadwalan"; // username
 $password = "admindb"; //  standarnya kosong
@@ -11,5 +13,6 @@ $conn = new mysqli($server, $username, $password, $database);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-
+//require "filter_auth.php";
+require "filter_role.php";
 ?>
