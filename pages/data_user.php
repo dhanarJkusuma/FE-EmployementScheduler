@@ -7,7 +7,7 @@
       <h3 class="box-title">Data Pengguna (Terdapat <?php echo mysqli_num_rows($query); ?> Data)</h3>
     </div><!-- /.box-header -->
     <div class="box-body">
-    <a href="tambah.php?tambah=data_user" style="margin-bottom: 10px;" class="btn btn-md btn-primary"> <i class="fa fa-plus"></i> Tambah Data Admin IT</a>
+    <a href="tambah.php?tambah=data_user" style="margin-bottom: 10px;" class="btn btn-md btn-primary"> <i class="fa fa-plus"></i> Tambah Data Pengguna</a>
     <br>
 		<table class="table table-bordered" id="tabel">
 		<thead>

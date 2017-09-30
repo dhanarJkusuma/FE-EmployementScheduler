@@ -105,7 +105,7 @@
 		<tbody>
 		<?php
 		  	$no=1;
-				if(isset($_POST['cmd']) == "search"){
+				if(isset($_POST['cmd']) && strlen($_POST['tgl_mulai'])>0 && strlen($_POST['tgl_akhir'])>0){
 		  		while($q=mysqli_fetch_object($cmdSearch)){
 		?>
 		  	<tr>

@@ -12,7 +12,7 @@
 	  <div class="box box-primary">
 	    <div class="box-header">
 	      <i class="fa fa-bar-chart-o"></i>
-	      <h3 class="box-title">Piket Hari Ini</h3>
+	      <h3 class="box-title">Agenda Hari Ini</h3>
 	    </div>
 	    <div class="box-body">
 	     <ul class="timeline">

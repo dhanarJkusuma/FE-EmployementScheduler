@@ -10,7 +10,7 @@
 	      <!-- general form elements disabled -->
 	      <div class="box box-warning">
 	        <div class="box-header">
-	          <h3 class="box-title">Tambah PIC</h3>
+	          <h3 class="box-title">Edit PIC</h3>
 	        </div><!-- /.box-header -->
 	        <div class="box-body">
 	          <form role="form" method="post" action="simpan.php">

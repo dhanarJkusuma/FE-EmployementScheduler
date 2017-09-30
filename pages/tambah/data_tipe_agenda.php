@@ -8,7 +8,7 @@ $data = mysqli_fetch_array($query);
 	      <!-- general form elements disabled -->
 	      <div class="box box-warning">
 	        <div class="box-header">
-	          <h3 class="box-title">Edit Tipe Agenda</h3>
+	          <h3 class="box-title">Tambah Tipe Agenda</h3>
 	        </div><!-- /.box-header -->
 	        <div class="box-body">
 	          <form role="form" method="post" action="simpan.php">
@@ -38,7 +38,7 @@ $data = mysqli_fetch_array($query);
 
 
 	            <button type="submit" class="btn btn-success"> <i class="fa fa-save"></i> Simpan</button>
-	            <button type="reset" class="btn btn-warning"> <i class="fa fa-backward"></i> Kembalikan Data </button>
+	            <button type="reset" class="btn btn-warning"> <i class="fa fa-backward"></i> Kosongkan Data </button>
 	            <a href="index.php?page=data_tipe_agenda" class="btn btn-danger"> <i class="fa fa-times"></i> Batal</a>
 	          </form>
 	        </div><!-- /.box-body -->

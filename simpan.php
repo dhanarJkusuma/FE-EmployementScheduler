@@ -33,13 +33,12 @@ switch ($type) {
 					status='$_POST[role]'";
 
 			if($user->password != $_POST['password']){
-				echo "harusnya ganti password";
 				if($_POST['password'] == $_POST['password_confirmation']){
 					$password = password_hash($_POST['password'],
 						PASSWORD_BCRYPT);
 					$query_update .= " ,password='$password'";
 				}else{
-					echo "<script>alert('Gagal menambahkan teknisi, password tidak sama.'); window.location = 'edit.php?edit=data_user&id=2'</script>";
+					echo "<script>alert('Gagal menambahkan teknisi, password tidak sama.'); window.location = 'edit.php?edit=data_user&id=". $_POST['id'] ."'</script>";
 					die();
 				}
 

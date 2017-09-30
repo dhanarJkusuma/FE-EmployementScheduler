@@ -60,13 +60,25 @@
         <section class="sidebar">
           <!-- Sidebar user panel -->
           <div class="user-panel">
-            <div class="pull-left image">
-              <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
-            </div>
             <div class="pull-left info">
               <p><?php echo $_SESSION['nama']; ?></p>
+              <a href="#"><i class="fa fa-circle text-success"></i> <?= $_SESSION["email"] ; ?></a>
+              <br/>
+              <br/>
+              <?php $status=$_SESSION["status"];
+                switch ($status) {
+                  case 'sa':
+                    echo "<a hef='#'><i class='fa fa-caret-square-o-right' aria-hidden='true'></i> Administator</a>";
+                    break;
+                  case 'admin':
+                    echo "<a hef='#'><i class='fa fa-caret-square-o-right' aria-hidden='true'></i> Admin IT</a>";
+                    break;
+                  case 'se':
+                    echo "<a hef='#'><i class='fa fa-caret-square-o-right' aria-hidden='true'></i> System Engineer</a>";
+                    break;
+                }
 
-              <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                ?>
             </div>
           </div>
           <!-- sidebar menu: : style can be found in sidebar.less -->
