@@ -32,7 +32,6 @@
 			$querySearch .= " agenda.agenda_tipe_id=agenda_tipe.id";
 
 			$cmdSearch = mysqli_query($conn, $querySearch);
-			echo $querySearch;
 		}
 	}
 ?>
@@ -106,7 +105,8 @@
 		<tbody>
 		<?php
 		  	$no=1;
-		  	while($q=mysqli_fetch_object($cmdSearch)){
+				if(isset($_POST['cmd']) == "search"){
+		  		while($q=mysqli_fetch_object($cmdSearch)){
 		?>
 		  	<tr>
 		   		<td><?php echo $no++; ?></td>
@@ -117,7 +117,8 @@
 			  	<td><?php echo $q->deskripsi; ?></td>
 		  	</tr>
 		<?php
-		  }
+				  }
+				}
 		?>
 		</tbody>
 		</table>
