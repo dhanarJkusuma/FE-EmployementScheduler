@@ -32,17 +32,19 @@ switch ($type) {
 					no_telp='$_POST[no_telp]',
 					status='$_POST[role]'";
 
-			if($user->password != $_POST['password']){
+
 				if($_POST['password'] == $_POST['password_confirmation']){
-					$password = password_hash($_POST['password'],
-						PASSWORD_BCRYPT);
-					$query_update .= " ,password='$password'";
+					if($user->password != $_POST['password']){
+						$password = password_hash($_POST['password'],
+							PASSWORD_BCRYPT);
+						$query_update .= " ,password='$password'";
+					}
 				}else{
 					echo "<script>alert('Gagal menambahkan teknisi, password tidak sama.'); window.location = 'edit.php?edit=data_user&id=". $_POST['id'] ."'</script>";
 					die();
 				}
 
-			}
+
 
 			$query_update .= " WHERE id='$_POST[id]'";
 			mysqli_query($conn, $query_update);
