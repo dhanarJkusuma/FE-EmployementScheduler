@@ -39,7 +39,7 @@ $data=mysqli_fetch_array($query);
 	            </div>
 
 	            <button type="submit" class="btn btn-success"> <i class="fa fa-save"></i> Simpan</button>
-	            <button type="reset" class="btn btn-warning"> <i class="fa fa-trash"></i> Reset</button>
+	            <button type="reset" class="btn btn-warning"> <i class="fa fa-trash"></i> Kosongkan Data </button>
 	            <a href="index.php?page=data_pelanggan" class="btn btn-danger"> <i class="fa fa-times"></i> Batal</a>
 	          </form>
 	        </div><!-- /.box-body -->

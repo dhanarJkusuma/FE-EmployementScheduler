@@ -13,7 +13,7 @@
           <p>Data System Engineer</p>
         </div>
         <div class="icon">
-          <i class="fa fa-gears"></i>
+          <i class="fa fa-user-secret"></i>
         </div>
         <?php if($_SESSION['status'] == "sa" || $_SESSION['status'] == "admin"){ ?>
         <a href="./?page=data_user" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
@@ -28,7 +28,7 @@
           <p>Data Admin IT</p>
         </div>
         <div class="icon">
-          <i class="fa fa-gears"></i>
+          <i class="fa  fa-qq"></i>
         </div>
         <?php if($_SESSION['status'] == "sa" || $_SESSION['status'] == "admin"){ ?>
         <a href="./?page=data_user" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
@@ -43,7 +43,7 @@
           <p>Data Pelanggan</p>
         </div>
         <div class="icon">
-          <i class="fa fa-gears"></i>
+          <i class="fa fa-comments-o"></i>
         </div>
         <?php if($_SESSION['status'] == "sa" || $_SESSION['status'] == "admin"){ ?>
         <a href="./?page=data_pelanggan" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
@@ -57,8 +57,8 @@
           <h3><?php echo mysqli_num_rows($data_pic); ?></h3>
           <p>Data PIC</p>
         </div>
-        <div class="icon">
-          <i class="fa fa-gears"></i>
+        <div class="icon">  
+          <i class="fa fa-users"></i>
         </div>
         <?php if($_SESSION['status'] == "sa" || $_SESSION['status'] == "admin"){ ?>
         <a href="./?page=data_pic" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>

@@ -24,10 +24,10 @@
   <body class="login-page">
     <div class="login-box">
       <div class="login-logo">
-        <a href="index2.html"><b>Jabetto</b>Scheduler</a>
+        <a href="index2.html"><img src="pages/images/logo.png"></a>        
       </div><!-- /.login-logo -->
       <div class="login-box-body">
-        <p class="login-box-msg">Silakan Login</p>
+        <p class="login-box-msg"> Silakan Login </p>
         <form action="dologin.php" method="post">
           <div class="form-group has-feedback">
             <input type="text" class="form-control" name="tEmail" placeholder="Email"/>
@@ -43,6 +43,8 @@
               <button type="submit" class="btn btn-primary btn-block btn-flat">Log In</button>
             </div><!-- /.col -->
           </div>
+          <br/><center> Copyright © 2017 Jabetto Scheduler </center>
+
         </form>
 
       </div><!-- /.login-box-body -->

@@ -17,7 +17,7 @@ switch ($type) {
 						'$_POST[no_telp]',
 						'$_POST[role]')");
 			}else{
-				echo "<script>alert('Gagal menambahkan teknisi, password tidak sama.'); window.location = 'tambah.php?tambah=data_user'</script>";
+				echo "<script>alert('Gagal menambahkan pengguna, password tidak sama.'); window.location = 'tambah.php?tambah=data_user'</script>";
 				die();
 			}
 
@@ -40,7 +40,7 @@ switch ($type) {
 						$query_update .= " ,password='$password'";
 					}
 				}else{
-					echo "<script>alert('Gagal menambahkan teknisi, password tidak sama.'); window.location = 'edit.php?edit=data_user&id=". $_POST['id'] ."'</script>";
+					echo "<script>alert('Gagal menambahkan pengguna, password tidak sama.'); window.location = 'edit.php?edit=data_user&id=". $_POST['id'] ."'</script>";
 					die();
 				}
 
