@@ -8,6 +8,12 @@ switch ($type) {
 	//DATA User
 	case 'data_user':
 		if ($cmd=="tambah") {
+			$isUserExist = "SELECT * FROM pengguna WHERE email='$_POST[email]'";
+			$isUserExistCmd = mysqli_query($conn, $isUserExist);
+			if(mysqli_num_rows($isUserExistCmd) > 0){
+				echo "<script>alert('Gagal menambahkan pengguna, email sudah ada.'); window.location = 'tambah.php?tambah=data_user'</script>";
+				die();
+			}
 			if($_POST['password'] == $_POST['password_confirmation']){
 				$password = password_hash($_POST[password], PASSWORD_BCRYPT);
 				mysqli_query($conn, "INSERT INTO pengguna(email, nama, password, no_telp, status)
@@ -23,6 +29,12 @@ switch ($type) {
 
 		}
 		elseif($cmd=="edit") {
+			$isUserExist = "SELECT * FROM pengguna WHERE email='$_POST[email]' and id<>'$_POST[id]'";
+			$isUserExistCmd = mysqli_query($conn, $isUserExist);
+			if(mysqli_num_rows($isUserExistCmd) > 0){
+				echo "<script>alert('Gagal menambahkan pengguna, pengguna dengan email ". $_POST[email] ." sudah ada.'); window.location = 'tambah.php?tambah=data_user'</script>";
+				die();
+			}
 			$res = mysqli_query($conn, "SELECT * FROM pengguna WHERE id='$_POST[id]'");
 			$user = mysqli_fetch_object($res);
 			$query_update =
@@ -57,6 +69,12 @@ switch ($type) {
 //DATA PELANGGAN
 	case 'data_pelanggan':
 		if ($cmd=="tambah") {
+			$isDataExist = "SELECT * FROM pelanggan WHERE email='$_POST[email]'";
+			$isDataExistCmd = mysqli_query($conn, $isDataExist);
+			if(mysqli_num_rows($isDataExistCmd) > 0){
+				echo "<script>alert('Gagal menambahkan pelanggan, pelanggan dengan email ". $_POST[email] ." sudah ada.'); window.location = 'tambah.php?tambah=data_pelanggan'</script>";
+				die();
+			}
 			mysqli_query($conn, "INSERT INTO pelanggan(nama, email, alamat, website, no_telp)
 			VALUES('$_POST[nama]',
 					'$_POST[email]',
@@ -65,6 +83,12 @@ switch ($type) {
 					'$_POST[no_telp]')");
 		}
 		elseif($cmd=="edit") {
+			$isDataExist = "SELECT * FROM pelanggan WHERE email='$_POST[email]' and id<>'$_POST[id]'";
+			$isDataExistCmd = mysqli_query($conn, $isDataExist);
+			if(mysqli_num_rows($isDataExistCmd) > 0){
+				echo "<script>alert('Gagal menambahkan pelanggan, pelanggan dengan email ". $_POST[email] ." sudah ada.'); window.location = 'tambah.php?tambah=data_pelanggan'</script>";
+				die();
+			}
 			$query_update =
 				"UPDATE pelanggan SET
 					nama='$_POST[nama]',
@@ -84,6 +108,12 @@ switch ($type) {
 //DATA PIC
 	case 'data_pic':
 		if ($cmd=="tambah") {
+			$isDataExist = "SELECT * FROM pic WHERE email='$_POST[email]'";
+			$isDataExistCmd = mysqli_query($conn, $isDataExist);
+			if(mysqli_num_rows($isDataExistCmd) > 0){
+				echo "<script>alert('Gagal menambahkan data pic, pic dengan email ". $_POST[email] ." sudah ada.'); window.location = 'tambah.php?tambah=data_pelanggan'</script>";
+				die();
+			}
 			mysqli_query($conn, "INSERT INTO pic(pelanggan_id, nama, email,no_telp)
 			VALUES('$_POST[pelanggan]',
 					'$_POST[nama]',
@@ -91,6 +121,12 @@ switch ($type) {
 					'$_POST[no_telp]')");
 		}
 		elseif($cmd=="edit") {
+			$isDataExist = "SELECT * FROM pic WHERE email='$_POST[email]' and id<>'$_POST[id]'";
+			$isDataExistCmd = mysqli_query($conn, $isDataExist);
+			if(mysqli_num_rows($isDataExistCmd) > 0){
+				echo "<script>alert('Gagal menambahkan data pic, pic dengan email ". $_POST[email] ." sudah ada.'); window.location = 'tambah.php?tambah=data_pelanggan'</script>";
+				die();
+			}
 			$query_update =
 				"UPDATE pic SET
 					pelanggan_id='$_POST[pelanggan]',
@@ -127,28 +163,6 @@ switch ($type) {
 		}
 		header('Location:index.php?page=data_tipe_agenda');
 	break;
-
-
-//DATA ADMIN
-	case 'admin':
-		if ($cmd=="tambah") {
-			mysql_query("INSERT INTO admin(nama,username,password)
-			VALUES('$_POST[nama]',
-			'$_POST[username]',
-			'$_POST[password]')");
-		}
-		elseif($cmd=="edit") {
-			mysql_query("UPDATE admin SET nama='$_POST[nama]',
-				username='$_POST[username]',
-				password='$_POST[password]'
-				WHERE id=".$_POST[id]);
-
-		}
-		else {
-			die(); //jika bukan tambah atau edit, lalu apa ? die aja lah :p
-		}
-		header('Location:index.php?page=admin');
-		break;
 
 	default:
 		require_once("pages/404.php");
