@@ -1,9 +1,6 @@
 <?php
 
 	require "../config/main.php";
-	error_reporting(E_ALL);
-	ini_set('display_errors', 1);
-
 
 	$pic = $_POST['pic'];
 	$data = json_decode($pic);
