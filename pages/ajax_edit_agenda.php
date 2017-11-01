@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 	require "../config/main.php";
 
@@ -10,6 +10,29 @@
 	$deskripsi = $_POST['deskripsi'];
 	$startDate = $_POST['startDate'];
 	$endDate = $_POST['endDate'];
+
+	foreach($data as $sPic){
+		$checkAgenda = "SELECT agenda.id
+										FROM agenda
+										INNER JOIN agenda_teknisi ON agenda.id=agenda_teknisi.agenda_id
+										WHERE
+										agenda_teknisi.teknisi_id='$sPic->id'
+										AND
+										agenda.id<>'$id'
+										AND
+										CURDATE() BETWEEN agenda.tgl_mulai AND DATE_ADD(agenda.tgl_akhir, INTERVAL 1 DAY);";
+		$existExec = mysqli_query($conn, $checkAgenda);
+		$existData = mysqli_num_rows($existExec);
+		if($existData > 0){
+			echo json_encode(
+				array(
+					"status" => false,
+					"message" => "Gagal menambahkan data. pic yang ditunjuk sedang berada di jadwal lain."
+				)
+			);
+			die();
+		}
+	}
 
 	$queryAgenda = "UPDATE agenda SET
 						agenda_tipe_id='$tipe',

@@ -1,7 +1,6 @@
 <?php
   include "configure_auth.php";
 
-  session_start();
   $HOST = (($SSL) ? "https://" : "http://") . $_SERVER['SERVER_NAME'];
   $HOSTNAME = str_replace($HOST, "", $BASE_URL);
   $PATH = str_replace($HOSTNAME,"",$_SERVER['REQUEST_URI']);

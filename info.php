@@ -3,8 +3,11 @@
   $data_admin = mysqli_query($conn, "select * from pengguna where status='admin'");
   $data_pelanggan = mysqli_query($conn, "select * from pelanggan");
   $data_pic = mysqli_query($conn, "select * from pic");
+
+  $status = $_SESSION['status'];
  ?>
 <div class="row">
+    <?php if($status == "sa" || $status == "admin"){ ?>
     <div class="col-lg-3 col-xs-6">
       <!-- small box -->
       <div class="small-box bg-aqua">
@@ -15,11 +18,13 @@
         <div class="icon">
           <i class="fa fa-user-secret"></i>
         </div>
-        <?php if($_SESSION['status'] == "sa" || $_SESSION['status'] == "admin"){ ?>
+        <?php if($status == "sa" || $status == "admin"){ ?>
         <a href="./?page=data_user" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
         <?php } ?>
       </div>
     </div><!-- ./col -->
+  <?php } ?>
+  <?php if($status == "sa" || $status == "admin"){ ?>
     <div class="col-lg-3 col-xs-6">
       <!-- small box -->
       <div class="small-box bg-yellow">
@@ -30,11 +35,12 @@
         <div class="icon">
           <i class="fa  fa-qq"></i>
         </div>
-        <?php if($_SESSION['status'] == "sa" || $_SESSION['status'] == "admin"){ ?>
+        <?php if($_SESSION['status'] == "sa" || $status == "admin"){ ?>
         <a href="./?page=data_user" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
         <?php } ?>
       </div>
     </div><!-- ./col -->
+  <?php } ?>
       <div class="col-lg-3 col-xs-6">
       <!-- small box -->
       <div class="small-box bg-green">
@@ -57,7 +63,7 @@
           <h3><?php echo mysqli_num_rows($data_pic); ?></h3>
           <p>Data PIC</p>
         </div>
-        <div class="icon">  
+        <div class="icon">
           <i class="fa fa-users"></i>
         </div>
         <?php if($_SESSION['status'] == "sa" || $_SESSION['status'] == "admin"){ ?>

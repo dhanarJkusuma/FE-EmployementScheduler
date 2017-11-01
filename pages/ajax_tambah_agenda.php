@@ -1,6 +1,8 @@
 <?php
 
 	require "../config/main.php";
+	error_reporting(E_ALL);
+	ini_set('display_errors', 1);
 
 
 	$pic = $_POST['pic'];
@@ -11,8 +13,29 @@
 	$startDate = $_POST['startDate'];
 	$endDate = $_POST['endDate'];
 
-	$queryAgenda = "INSERT INTO agenda(agenda_tipe_id, pelanggan_id, deskripsi, tgl_mulai, tgl_akhir) VALUES ('$tipe', '$lokasi','$deskripsi', '$startDate', '$endDate') ";
+	foreach($data as $sPic){
+		$checkAgenda = "SELECT agenda.id
+										FROM agenda
+										INNER JOIN agenda_teknisi ON agenda.id=agenda_teknisi.agenda_id
+										WHERE
+										agenda_teknisi.teknisi_id='$sPic->id'
+										AND
+										CURDATE() BETWEEN agenda.tgl_mulai AND DATE_ADD(agenda.tgl_akhir, INTERVAL 1 DAY);";
+		$existExec = mysqli_query($conn, $checkAgenda);
+		$existData = mysqli_num_rows($existExec);
+		if($existData > 0){
+			echo json_encode(
+				array(
+					"status" => false,
+					"message" => "Gagal menambahkan data. pic yang ditunjuk sedang berada di jadwal lain."
+				)
+			);
+			die();
+		}
+	}
 
+
+	$queryAgenda = "INSERT INTO agenda(agenda_tipe_id, pelanggan_id, deskripsi, tgl_mulai, tgl_akhir) VALUES ('$tipe', '$lokasi','$deskripsi', '$startDate', '$endDate') ";
 	if (mysqli_query($conn, $queryAgenda)) {
 	    $last_id = mysqli_insert_id($conn);
 	    foreach($data as $sPic){

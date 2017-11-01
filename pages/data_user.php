@@ -32,8 +32,10 @@
 			  	<td><?php echo $q->no_telp; ?></td>
 			  	<td><?php echo ($q->status == "admin") ? "Admin IT" : "System Engineer"  ?></td>
 			    <td>
-			    	<a class="btn btn-success" href="edit.php?edit=<?php echo $_GET['page']; ?>&id=<?php echo $q->id; ?>">Edit</a>
-			    	<a class="btn btn-danger" onclick="return confirm('Apakah anda yakin akan menghapus data ini?')" href="hapus.php?hapus=<?php echo $_GET['page']; ?>&id=<?php echo $q->id; ?>">Hapus</a>
+						<?php if($_SESSION['status'] == "sa"){ ?>
+				    	<a class="btn btn-success" href="edit.php?edit=<?php echo $_GET['page']; ?>&id=<?php echo $q->id; ?>">Edit</a>
+				    	<a class="btn btn-danger" onclick="return confirm('Apakah anda yakin akan menghapus data ini?')" href="hapus.php?hapus=<?php echo $_GET['page']; ?>&id=<?php echo $q->id; ?>">Hapus</a>
+						<?php } ?>
 			    </td>
 		  	</tr>
 		<?php

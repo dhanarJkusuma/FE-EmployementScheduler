@@ -171,7 +171,6 @@ var date = new Date(),
     events: function(start, end, timezone, callback) {
       var url = "pages/list_data_agenda.php?start_date=" + start.format() + "&end_date=" + end.format();
       $.get(url,function(data){
-            console.log(data.events);
             if (data.events == undefined){
                 alert("Error in fetching calendar feed, reason: "+data.err)
             } else {
@@ -227,7 +226,12 @@ $('#form-submit').on('submit', function(e){
 							$('#add-agenda').modal('hide');
 							$('#calendar').fullCalendar( 'refetchEvents' );
 							resetField();
+						}else{
+							alert(data.message);
 						}
+					},
+					error: function(err){
+						console.log(err);
 					},
 					dataType: "json"
 				});
@@ -242,6 +246,8 @@ $('#form-submit').on('submit', function(e){
 							$('#add-agenda').modal('hide');
 							$('#calendar').fullCalendar( 'refetchEvents' );
 							resetField();
+						}else{
+							alert(data.message);
 						}
 					},
 					dataType: "json"
