@@ -41,7 +41,7 @@
       </div>
     </div><!-- ./col -->
   <?php } ?>
-      <div class="col-lg-3 col-xs-6">
+      <div class="<?= ($_SESSION['status'] == "se") ? "col-lg-6" : "col-lg-3" ?> col-xs-6">
       <!-- small box -->
       <div class="small-box bg-green">
         <div class="inner">
@@ -51,12 +51,10 @@
         <div class="icon">
           <i class="fa fa-comments-o"></i>
         </div>
-        <?php if($_SESSION['status'] == "sa" || $_SESSION['status'] == "admin"){ ?>
         <a href="./?page=data_pelanggan" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
-        <?php } ?>
       </div>
     </div><!-- ./col -->
-    <div class="col-lg-3 col-xs-6">
+    <div class="<?= ($_SESSION['status'] == "se") ? "col-lg-6" : "col-lg-3" ?> col-xs-6">
       <!-- small box -->
       <div class="small-box bg-red">
         <div class="inner">
@@ -66,9 +64,7 @@
         <div class="icon">
           <i class="fa fa-users"></i>
         </div>
-        <?php if($_SESSION['status'] == "sa" || $_SESSION['status'] == "admin"){ ?>
         <a href="./?page=data_pic" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
-        <?php } ?>
       </div>
     </div><!-- ./col -->
 </div><!-- /.row -->

@@ -6,9 +6,6 @@
 	$queryPelanggan = mysqli_query($conn, "SELECT * FROM pelanggan");
 ?>
 
-
-
-
 <div class="col-md-12">
   <div class="box box-primary">
     <div class="box-body no-padding">
@@ -105,6 +102,11 @@
 <script src="plugins/fullcalendar/fullcalendar.min.js"></script>
 <script>
 $("#delete-btn").hide();
+<?php if($_SESSION['status'] == "sa" || $_SESSION['status'] == "admin"){ ?>
+	var editable = true;
+<?php }else{ ?>
+	var editable = false;
+<?php } ?>
 var date = new Date(),
     d = date.getDate(),
     m = date.getMonth(),
@@ -112,7 +114,7 @@ var date = new Date(),
     started,
     categoryClass;
 
-    window.calendar = $('#calendar').fullCalendar({
+  window.calendar = $('#calendar').fullCalendar({
     header: {
         left: 'prev,next today',
         center: 'title',
@@ -121,6 +123,7 @@ var date = new Date(),
     displayEventTime : false,
     selectable: true,
     selectHelper: true,
+		eventStartEditable: editable,
     // create
     select: function(start, end, allDay) {
 			<?php if($_SESSION['status'] == "sa" || $_SESSION['status'] == "admin"){ ?>
@@ -167,7 +170,6 @@ var date = new Date(),
       calendar.fullCalendar('unselect');
 
     },
-    editable: true,
     events: function(start, end, timezone, callback) {
       var url = "pages/list_data_agenda.php?start_date=" + start.format() + "&end_date=" + end.format();
       $.get(url,function(data){
@@ -180,7 +182,7 @@ var date = new Date(),
 
     },
     eventDrop: function(event, delta, revertFunc) {
-
+			<?php if($_SESSION['status'] == "sa" || $_SESSION['status'] == "admin"){ ?>
       var id = event.calendar_id;
       var startDate = event.startDate;
       var endDate = event.endDate;
@@ -198,6 +200,7 @@ var date = new Date(),
         },
         dataType: "json"
       });
+			<?php } ?>
     }
 });
 

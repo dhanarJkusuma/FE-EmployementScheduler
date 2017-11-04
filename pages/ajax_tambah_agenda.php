@@ -9,6 +9,7 @@
 	$deskripsi = $_POST['deskripsi'];
 	$startDate = $_POST['startDate'];
 	$endDate = $_POST['endDate'];
+	$endVisionDate = date('Y-m-d', strtotime('-1 day', strtotime($endDate)));
 
 	foreach($data as $sPic){
 		$checkAgenda = "SELECT agenda.id
@@ -17,10 +18,9 @@
 										WHERE
 										agenda_teknisi.teknisi_id='$sPic->id'
 										AND
-										agenda.tgl_mulai BETWEEN '$startDate' AND '$endDate'
+										'$startDate' BETWEEN agenda.tgl_mulai AND agenda.tgl_akhir
 										AND
-										agenda.tgl_akhir BETWEEN '$startDate' AND '$endDate'
-										";
+										'$endDate' BETWEEN agenda.tgl_mulai AND agenda.tgl_akhir";
 		$existExec = mysqli_query($conn, $checkAgenda);
 		$existData = mysqli_num_rows($existExec);
 		if($existData > 0){

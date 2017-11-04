@@ -7,7 +7,9 @@
       <h3 class="box-title">Data Pelanggan (Terdapat <?php echo mysqli_num_rows($query); ?> Data)</h3>
     </div><!-- /.box-header -->
     <div class="box-body">
-    <a href="tambah.php?tambah=data_pelanggan" style="margin-bottom: 10px;" class="btn btn-md btn-primary"> <i class="fa fa-plus"></i> Tambah Data Pelanggan</a>
+			<?php if($_SESSION['status'] == 'admin' || $_SESSION['status'] == 'sa'){ ?>
+    		<a href="tambah.php?tambah=data_pelanggan" style="margin-bottom: 10px;" class="btn btn-md btn-primary"> <i class="fa fa-plus"></i> Tambah Data Pelanggan</a>
+			<?php } ?>
     <br>
 		<table class="table table-bordered" id="tabel">
 		<thead>
