@@ -19,7 +19,7 @@
           <i class="fa fa-user-secret"></i>
         </div>
         <?php if($status == "sa" || $status == "admin"){ ?>
-        <a href="./?page=data_user" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
+        <a href="./?page=data_user&filter=se" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
         <?php } ?>
       </div>
     </div><!-- ./col -->
@@ -36,7 +36,7 @@
           <i class="fa  fa-qq"></i>
         </div>
         <?php if($_SESSION['status'] == "sa" || $status == "admin"){ ?>
-        <a href="./?page=data_user" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
+        <a href="./?page=data_user&filter=admin" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
         <?php } ?>
       </div>
     </div><!-- ./col -->

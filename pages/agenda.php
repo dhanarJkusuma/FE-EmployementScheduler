@@ -107,12 +107,6 @@ $("#delete-btn").hide();
 <?php }else{ ?>
 	var editable = false;
 <?php } ?>
-var date = new Date(),
-    d = date.getDate(),
-    m = date.getMonth(),
-    y = date.getFullYear(),
-    started,
-    categoryClass;
 
   window.calendar = $('#calendar').fullCalendar({
     header: {

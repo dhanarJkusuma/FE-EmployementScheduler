@@ -3,7 +3,25 @@
 	$date = date('D, d M Y');
 
 	$cDate = date('Y-m-d');
-	$query = mysqli_query($conn, "SELECT agenda.id, agenda.deskripsi, agenda_tipe.nama as tipe, pelanggan.nama as lokasi FROM agenda,agenda_tipe,pelanggan WHERE agenda.agenda_tipe_id=agenda_tipe.id and agenda.pelanggan_id=pelanggan.id and agenda.tgl_mulai='$cDate'");
+	$nextDate = date('Y-m-d', strtotime("+3 day", strtotime($cDate)));
+	$agendaQuery = "SELECT
+									agenda.id, agenda.deskripsi, agenda_tipe.nama as tipe, pelanggan.nama as lokasi, agenda.tgl_mulai as tgl
+									FROM
+									agenda,agenda_tipe,pelanggan
+									WHERE
+									agenda.agenda_tipe_id=agenda_tipe.id
+									AND
+									agenda.pelanggan_id=pelanggan.id
+									AND
+									'$cDate' BETWEEN agenda.tgl_mulai AND agenda.tgl_akhir
+									OR
+									agenda.agenda_tipe_id=agenda_tipe.id
+									AND
+									agenda.pelanggan_id=pelanggan.id
+									AND
+									agenda.tgl_mulai BETWEEN '$cDate'  AND '$nextDate'
+									ORDER BY agenda.tgl_mulai ASC";
+	$query = mysqli_query($conn, $agendaQuery);
 
 ?>
 <div class="row">
@@ -12,21 +30,35 @@
 	  <div class="box box-primary">
 	    <div class="box-header">
 	      <i class="fa fa-bar-chart-o"></i>
-	      <h3 class="box-title">Agenda Hari Ini</h3>
+	      <h3 class="box-title">Agenda Hari Ini & 3 Hari Kedepan</h3>
 	    </div>
 	    <div class="box-body">
 	     <ul class="timeline">
             <!-- timeline time label -->
-            <li class="time-label">
-                  <span class="bg-red">
-                    <?= $date ?>
-                  </span>
-            </li>
+
             <!-- /.timeline-label -->
             <!-- timeline item -->
+						<?php $visibleDate = ""; ?>
             <?php while($row = mysqli_fetch_object($query)) { ?>
+							<?php if($visibleDate != $row->tgl){ ?>
+							<li class="time-label">
+	                  <span class="bg-red">
+	                    <?= date('D, d M Y', strtotime($row->tgl)); ?>
+	                  </span>
+	            </li>
+							<?php } ?>
+							<?php $visibleDate = $row->tgl; ?>
             <?php
-            	$picQuery = mysqli_query($conn, "SELECT agenda_teknisi.teknisi_id, pengguna.nama FROM agenda_teknisi, pengguna WHERE agenda_teknisi.teknisi_id = pengguna.id and agenda_id='$row->id'");
+							$querySchedule = "SELECT
+																	agenda_teknisi.teknisi_id,
+																	pengguna.nama
+																	FROM agenda_teknisi, pengguna
+																	WHERE
+																	agenda_teknisi.teknisi_id = pengguna.id
+																	and
+																	agenda_id='$row->id'";
+
+            	$picQuery = mysqli_query($conn, $querySchedule);
 
             	$title = $row->tipe . " - ";
             	$jumlah = mysqli_num_rows($picQuery);
@@ -38,8 +70,6 @@
 					}
 					$index++;
 				}
-
-
             ?>
             <li>
               <i class="fa fa-envelope bg-blue"></i>

@@ -16,12 +16,12 @@
 		}else{
 			$tgl_mulai = $_POST['tgl_mulai'];
 			$tgl_akhir = $_POST['tgl_akhir'];
-			$querySearch = "SELECT agenda.deskripsi, agenda_tipe.nama as tipe, pelanggan.nama as lokasi,  pengguna.email, agenda.tgl_mulai, agenda.tgl_akhir";
+			$querySearch = "SELECT agenda.deskripsi, agenda_tipe.nama as tipe, pelanggan.nama as lokasi, pengguna.email, pengguna.nama as karyawan, agenda.tgl_mulai, agenda.tgl_akhir";
 	    $querySearch .= " FROM agenda_teknisi, pengguna, agenda, agenda_tipe, pelanggan WHERE";
 			$querySearch .= " agenda.tgl_mulai >= '$tgl_mulai' and";
 			$querySearch .= " agenda.tgl_akhir <= '$tgl_akhir' and";
 
-			if(isset($_POST['pegawai'])){
+			if(isset($_POST['pegawai']) && $_POST['pegawai'] != -1){
 				$id = $_POST['pegawai'];
 				$querySearch .= " teknisi_id='$id' and";
 			}
@@ -65,6 +65,7 @@
 	        <div class="col-md-10">
 						<select class="form-control select2" data-placeholder="Pilih Pegawai" id="pegawai"
 										style="width: 100%;" name="pegawai">
+							<option value="-1"> Semua Karyawan</option>
 							<?php while($row = mysqli_fetch_object($queryPegawai)){ ?>
 									<option value="<?= $row->id ?>"><?= $row->nama ?></option>
 							<?php } ?>
@@ -95,6 +96,7 @@
 		<thead>
 			 <tr>
          		<th>No</th>
+						<td>Nama Karyawan</td>
          		<th>Tanggal Mulai</th>
          		<th>Tanggal Selesai</th>
 						<th>Lokasi</th>
@@ -110,6 +112,7 @@
 		?>
 		  	<tr>
 		   		<td><?php echo $no++; ?></td>
+					<td><?php echo $q->karyawan; ?></td>
 		   		<td><?php echo $q->tgl_mulai; ?></td>
 		    	<td><?php echo $q->tgl_akhir; ?></td>
 					<td><?php echo $q->lokasi ?></td>
