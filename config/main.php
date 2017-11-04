@@ -1,6 +1,6 @@
 <?php
 if(!isset($_SESSION)){
-  session_start();  
+  session_start();
 }
 
 
@@ -18,6 +18,6 @@ $conn = new mysqli($server, $username, $password, $database);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-//require "filter_auth.php";
+require "filter_auth.php";
 require "filter_role.php";
 ?>

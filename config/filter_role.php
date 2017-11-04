@@ -26,6 +26,14 @@
           }
         }
       }
+    }else{
+      if(strpos($PATH, $key) !== false){
+        $roles = $rules[$key];
+        if(!in_array($_SESSION['status'], $roles)){
+          require_once("pages/403.php");
+          die();
+        }
+      }
     }
   }
 

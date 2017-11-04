@@ -66,7 +66,7 @@ switch ($type) {
 		}
 		header('Location:index.php?page=data_user');
 	break;
-//DATA PELANGGAN
+	//DATA PELANGGAN
 	case 'data_pelanggan':
 		if ($cmd=="tambah") {
 			$isDataExist = "SELECT * FROM pelanggan WHERE email='$_POST[email]'";
@@ -105,13 +105,17 @@ switch ($type) {
 		}
 		header('Location:index.php?page=data_pelanggan');
 	break;
-//DATA PIC
+	//DATA PIC
 	case 'data_pic':
+		if($_POST[pelanggan] == 0){
+			echo "<script>alert('Gagal menambahkan data pic, pelanggan wajib diisi.'); window.location = 'tambah.php?tambah=data_pic'</script>";
+			die();
+		}
 		if ($cmd=="tambah") {
 			$isDataExist = "SELECT * FROM pic WHERE email='$_POST[email]'";
 			$isDataExistCmd = mysqli_query($conn, $isDataExist);
 			if(mysqli_num_rows($isDataExistCmd) > 0){
-				echo "<script>alert('Gagal menambahkan data pic, pic dengan email ". $_POST[email] ." sudah ada.'); window.location = 'tambah.php?tambah=data_pelanggan'</script>";
+				echo "<script>alert('Gagal menambahkan data pic, pic dengan email ". $_POST[email] ." sudah ada.'); window.location = 'tambah.php?tambah=data_pic'</script>";
 				die();
 			}
 			mysqli_query($conn, "INSERT INTO pic(pelanggan_id, nama, email,no_telp)
@@ -142,7 +146,7 @@ switch ($type) {
 		}
 		header('Location:index.php?page=data_pic');
 	break;
-//DATA TIPE AGENDA
+	//DATA TIPE AGENDA
 	case 'data_tipe_agenda':
 		if ($cmd=="tambah") {
 			mysqli_query($conn, "INSERT INTO agenda_tipe(nama, warna)

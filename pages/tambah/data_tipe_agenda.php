@@ -18,7 +18,7 @@ $data = mysqli_fetch_array($query);
 	            <!-- text input -->
 	            <div class="form-group">
 	              <label>Agenda Tipe</label>
-	              <input type="text" name="nama" class="form-control" placeholder="Nama" />
+	              <input type="text" name="nama" class="form-control" placeholder="Nama" required/>
 	            </div>
 
 	             <!-- Color Picker -->
@@ -26,7 +26,7 @@ $data = mysqli_fetch_array($query);
 	                <label>Warna:</label>
 
 	                <div class="input-group colorpicker">
-	                  <input type="text" class="form-control" name="warna" value="#FF0000">
+	                  <input type="text" class="form-control" name="warna" value="#FF0000" required>
 
 	                  <div class="input-group-addon">
 	                    <i></i>

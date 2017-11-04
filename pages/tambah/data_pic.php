@@ -1,7 +1,7 @@
-<?php 
+<?php
 	require_once('config/main.php');
 	$queryp=mysqli_query($conn, "SELECT * FROM pelanggan");
-	
+
 ?>
 <section>
 	<div class="row">
@@ -20,7 +20,7 @@
 	            	<label>Nama Pelanggan</label>
 	            	<select class="form-control" name="pelanggan">
 	            		<option value="0">--PILIH PELANGGAN--</option>
-	            	<?php 
+	            	<?php
 	            		while($pelanggan = mysqli_fetch_array($queryp)){
 	            	?>
 	            		<option value="<?php echo $pelanggan['id']; ?>"><?php echo $pelanggan['nama']; ?></option>
@@ -29,15 +29,15 @@
 	            </div>
 	            <div class="form-group">
 	              <label>Nama</label>
-	              <input type="text" name="nama" class="form-control" placeholder="Nama" value=""/>
+	              <input type="text" name="nama" class="form-control" placeholder="Nama" value="" required/>
 	            </div>
 	            <div class="form-group">
 	              <label>Email</label>
-	              <input type="email" name="email" class="form-control" placeholder="Email" value=""/>
+	              <input type="email" name="email" class="form-control" placeholder="Email" value="" required/>
 	            </div>
 	            <div class="form-group">
 	              <label>No Telp</label>
-	              <input type="number" name="no_telp" class="form-control" placeholder="No Telp" value=""/>
+	              <input type="number" name="no_telp" class="form-control" placeholder="No Telp" value="" required/>
 	            </div>
 
 	            <button type="submit" class="btn btn-success"> <i class="fa fa-save"></i> Simpan</button>

@@ -105,12 +105,12 @@
                 <i class="fa fa-user-md"></i> <span>Data Pengguna</span>
               </a>
             </li>
+            <?php } ?>
             <li class="treeview <?php if(isset($_GET['page']) && $_GET['page']=="data_pelanggan") { echo "active"; } ?>">
               <a href="./?page=data_pelanggan">
                 <i class="fa fa-th"></i> <span>Data Pelanggan</span>
               </a>
             </li>
-            <?php } ?>
             <li class="treeview <?php if(isset($_GET['page']) && $_GET['page']=="data_pic") { echo "active"; } ?>">
               <a href="./?page=data_pic">
                 <i class="fa fa-phone-square "></i> <span>Data PIC</span>

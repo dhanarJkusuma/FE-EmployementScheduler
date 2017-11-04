@@ -5,7 +5,7 @@
 	      <div class="box box-warning">
 	        <div class="box-header">
 	          <h3 class="box-title">Tambah Pelanggan</h3>
-	        </div><!-- /.box-header --> 
+	        </div><!-- /.box-header -->
 	        <div class="box-body">
 	          <form role="form" method="post" action="simpan.php">
 	          <input type="hidden" name="type" value="data_pelanggan">
@@ -13,23 +13,23 @@
 	            <!-- text input -->
 	            <div class="form-group">
 	              <label>Nama</label>
-	              <input type="text" name="nama" class="form-control" placeholder="Nama" value=""/>
+	              <input type="text" name="nama" class="form-control" placeholder="Nama" value="" required/>
 	            </div>
 	            <div class="form-group">
 	              <label>Email</label>
-	              <input type="email" name="email" class="form-control" placeholder="Email" value=""/>
+	              <input type="email" name="email" class="form-control" placeholder="Email" value="" required/>
 	            </div>
 	            <div class="form-group">
 	              <label>Alamat</label>
-	              <textarea name="alamat" class="form-control" placeholder="Alamat"></textarea>
+	              <textarea name="alamat" class="form-control" placeholder="Alamat" required></textarea>
 	            </div>
 	            <div class="form-group">
 	              <label>Website</label>
-	              <input type="text" name="website" class="form-control" placeholder="Website" value=""/>
+	              <input type="text" name="website" class="form-control" placeholder="Website" value="" required/>
 	            </div>
 	            <div class="form-group">
 	              <label>No Telp</label>
-	              <input type="number" name="no_telp" class="form-control" placeholder="No Telp" value=""/>
+	              <input type="number" name="no_telp" class="form-control" placeholder="No Telp" value="" required/>
 	            </div>
 
 	            <button type="submit" class="btn btn-success"> <i class="fa fa-save"></i> Simpan</button>

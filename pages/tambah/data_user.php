@@ -5,7 +5,7 @@
 	      <div class="box box-warning">
 	        <div class="box-header">
 	          <h3 class="box-title">Tambah Pengguna</h3>
-	        </div><!-- /.box-header -->	               
+	        </div><!-- /.box-header -->
 	        <div class="box-body">
 	          <form role="form" method="post" action="simpan.php">
 	          <input type="hidden" name="type" value="data_user">
@@ -13,27 +13,27 @@
 	            <!-- text input -->
 	            <div class="form-group">
 	              <label>Email</label>
-	              <input type="email" name="email" class="form-control" placeholder="Email" value=""/>
+	              <input type="email" name="email" class="form-control" placeholder="Email" value="" required/>
 	            </div>
 	            <div class="form-group">
 	              <label>Nama</label>
-	              <input type="text" name="nama" class="form-control" placeholder="Nama" value=""/>
+	              <input type="text" name="nama" class="form-control" placeholder="Nama" value="" required/>
 	            </div>
 	            <div class="form-group">
 	              <label>Password</label>
-	              <input type="password" name="password" class="form-control" placeholder="Password" value=""/>
+	              <input type="password" name="password" class="form-control" placeholder="Password" value="" required/>
 	            </div>
 	            <div class="form-group">
 	              <label>Password Konfirmasi</label>
-	              <input type="password" name="password_confirmation" class="form-control" placeholder="Password Konfirmasi" value=""/>
+	              <input type="password" name="password_confirmation" class="form-control" placeholder="Password Konfirmasi" value="" required/>
 	            </div>
 	            <div class="form-group">
 	              <label>No Telp</label>
-	              <input type="number" name="no_telp" class="form-control" placeholder="No Telp" value=""/>
+	              <input type="number" name="no_telp" class="form-control" placeholder="No Telp" value="" required/>
 	            </div>
 	            <div class="form-group">
 	              <label>Tipe</label>
-	              <select class="form-control" name="role">
+	              <select class="form-control" name="role" required>
 	              	<option value="admin">Admin IT</option>
 	              	<option value="se">System Engineer</option>
 	              </select>

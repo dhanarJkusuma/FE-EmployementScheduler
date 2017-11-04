@@ -1,4 +1,4 @@
-<?php 
+<?php
 	require 'config/main.php';
 	$query=mysqli_query($conn, "SELECT * FROM pelanggan");
 ?>
@@ -34,8 +34,12 @@
 			  	<td><?php echo $q->website; ?></td>
 			  	<td><?php echo $q->no_telp; ?></td>
 			    <td>
-			    	<a class="btn btn-success" href="edit.php?edit=<?php echo $_GET['page']; ?>&id=<?php echo $q->id; ?>">Edit</a>
-			    	<a class="btn btn-danger" onclick="return confirm('Apakah anda yakin akan menghapus data ini?')" href="hapus.php?hapus=<?php echo $_GET['page']; ?>&id=<?php echo $q->id; ?>">Hapus</a>
+						<?php if($_SESSION['status'] == 'sa' || $_SESSION['status'] == 'admin'){ ?>
+				    	<a class="btn btn-success" href="edit.php?edit=<?php echo $_GET['page']; ?>&id=<?php echo $q->id; ?>">Edit</a>
+				    	<a class="btn btn-danger" onclick="return confirm('Apakah anda yakin akan menghapus data ini?')" href="hapus.php?hapus=<?php echo $_GET['page']; ?>&id=<?php echo $q->id; ?>">Hapus</a>
+						<?php }else{ ?>
+							<p>No Action.</p>
+						<?php } ?>
 			    </td>
 		  	</tr>
 		<?php

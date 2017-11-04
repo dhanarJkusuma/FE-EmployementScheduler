@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 if (isset($_GET['tambah'])) {
 	$path = "pages/tambah/".$_GET['tambah'].".php";
