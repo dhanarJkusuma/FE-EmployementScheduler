@@ -67,7 +67,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-danger" id="delete-btn">Hapus</button>
-          <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+          <button type="button" class="btn btn-default clearForm" data-dismiss="modal">Tutup</button>
           <button type="submit" class="btn btn-primary">Simpan</button>
         </div>
       </form>
@@ -104,7 +104,7 @@
 <script src="plugins/moment/moment.js"></script>
 <script src="plugins/fullcalendar/fullcalendar.min.js"></script>
 <script>
-  $("#delete-btn").hide();
+$("#delete-btn").hide();
 var date = new Date(),
     d = date.getDate(),
     m = date.getMonth(),
@@ -296,6 +296,9 @@ $('#delete-btn').on('click', function(){
   function resetField(){
     $('.select2').select2().val("").trigger("change");
     $('#deskripsi').val("");
-
   }
+
+	$('.clearForm').on('click', function(e){
+		resetField();
+	})
 </script>

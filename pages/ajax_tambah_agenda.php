@@ -17,7 +17,9 @@
 										WHERE
 										agenda_teknisi.teknisi_id='$sPic->id'
 										AND
-										CURDATE() BETWEEN agenda.tgl_mulai AND DATE_ADD(agenda.tgl_akhir, INTERVAL 1 DAY);";
+										agenda.tgl_mulai <= CURDATE()
+										OR
+										agenda.tgl_akhir >= CURDATE()";
 		$existExec = mysqli_query($conn, $checkAgenda);
 		$existData = mysqli_num_rows($existExec);
 		if($existData > 0){
