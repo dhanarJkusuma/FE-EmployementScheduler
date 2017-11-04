@@ -21,7 +21,7 @@
 										agenda.id<>'$id'
 										AND
 										agenda.tgl_mulai BETWEEN '$startDate' AND '$endDate'
-										OR
+										AND
 										agenda.tgl_akhir BETWEEN '$startDate' AND '$endDate'";
 		$existExec = mysqli_query($conn, $checkAgenda);
 		$existData = mysqli_num_rows($existExec);

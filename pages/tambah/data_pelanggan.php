@@ -26,7 +26,7 @@
 	            <div class="form-group">
 	              <label>Website</label>
 	              <input type="text" name="website" class="form-control" placeholder="Website" value="" required/>
-	            </div>
+	            </div>w
 	            <div class="form-group">
 	              <label>No Telp</label>
 	              <input type="number" name="no_telp" class="form-control" placeholder="No Telp" value="" required/>
