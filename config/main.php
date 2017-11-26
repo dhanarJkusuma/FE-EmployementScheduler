@@ -7,9 +7,9 @@ if(!isset($_SESSION)){
 $BASE_URL = "http://localhost/ta";
 $SSL = false;
 $server = "localhost:3306"; //nama server
-$username = "jabetto"; // username
-$password = "password"; //  standarnya kosong
-$database = "jabettos"; // buat nama database harus sama
+$username = "root"; // username
+$password = ""; //  standarnya kosong
+$database = "jabetto-scheduler"; // buat nama database harus sama
 
 // Koneksi dan memilih database di server
 $conn = new mysqli($server, $username, $password, $database);
