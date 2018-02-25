@@ -1,2 +1,4 @@
-# ltecrud
-Aplikasi Simple CRUD dengan PHP dan Admin LTE Template
+# Introduce
+
+Employement Scheduler App.
+Developed using PHP, and Bootstrap
